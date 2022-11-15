@@ -84,7 +84,7 @@ namespace JSonManager
                     }
                 }
 
-                RootNode = currentNode;
+                RootNode = previousNode;
 
             }
             catch (Exception e)
@@ -230,17 +230,14 @@ namespace JSonManager
         {
             readingState = eReadingState.EndOfArray;
 
-            // Agregamos un nodo para marcar la finalización del array.
-            SetNextNode();
-            currentNode.Append(']');
-            currentNode.NodeType = JSonNode.eNodeType.EndOfArray;
-
             // Recuperamos el nodo que inicio el objeto para sacarlo de la pila.
             if (jSonNodes.Peek().Key == '[')
                 currentNode = jSonNodes.Pop().Value;
 
-            // Colocamos el foco en el siguiente nodo HermanoMenor.
+            // Agregamos un nodo para marcar la finalización del array.
             SetNextNode();
+            currentNode.Append(']');
+            currentNode.NodeType = JSonNode.eNodeType.EndOfArray;
         }
 
         #endregion
@@ -276,19 +273,13 @@ namespace JSonManager
         {
             readingState = eReadingState.EndOfObject;
 
-            // Agregamos un nodo para marcar la finalización del objeto.
-            SetNextNode();            
-            currentNode.Append('}');
-            currentNode.NodeType = JSonNode.eNodeType.EndOfObject;
-
-            // Recuperamos el nodo que inicio el objeto para sacarlo de la pila.
+           // Recuperamos el nodo que inicio el objeto para sacarlo de la pila.
             if (jSonNodes.Peek().Key == '{')
                 currentNode = jSonNodes.Pop().Value;
-
-            // Comprobamos que no estamos al final del Json.
-            if(jSonNodes.Count != 0)
-                // Colocamos el foco en el siguiente nodo HermanoMenor.
-                SetNextNode();
+                            
+            SetNextNode();
+            currentNode.Append('}');
+            currentNode.NodeType = JSonNode.eNodeType.EndOfObject;          
         }
 
         #endregion
