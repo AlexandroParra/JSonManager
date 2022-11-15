@@ -233,6 +233,7 @@ namespace JSonManager
             // Agregamos un nodo para marcar la finalización del array.
             SetNextNode();
             currentNode.Append(']');
+            currentNode.NodeType = JSonNode.eNodeType.EndOfArray;
 
             // Recuperamos el nodo que inicio el objeto para sacarlo de la pila.
             if (jSonNodes.Peek().Key == '[')
@@ -278,6 +279,7 @@ namespace JSonManager
             // Agregamos un nodo para marcar la finalización del objeto.
             SetNextNode();            
             currentNode.Append('}');
+            currentNode.NodeType = JSonNode.eNodeType.EndOfObject;
 
             // Recuperamos el nodo que inicio el objeto para sacarlo de la pila.
             if (jSonNodes.Peek().Key == '{')
