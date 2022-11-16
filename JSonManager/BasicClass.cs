@@ -23,6 +23,11 @@ namespace JSonManager
             Type = type;
             Separator = separator;
         }
+
+        public override string ToString()
+        {
+            return Name + Separator + Value;
+        }
     }
 
 
