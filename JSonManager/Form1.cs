@@ -28,8 +28,8 @@ namespace JSonManager
             
             JSonOperator Joperator = new JSonOperator(nodo);
             List<BasicClass> basicClasses = Joperator.GetBasicClasses();
-
-            treeView1 = EscrituraTreeView(treeView1, basicClasses[0]);
+            
+            EscrituraTreeView(treeView1.Nodes.Add(basicClasses[0].Name), basicClasses[0]);
 
         }
 
@@ -101,30 +101,20 @@ namespace JSonManager
                 EscrituraRecursiva(nodo.HermanoMenor, sw, miTabulador);
         }
 
-        private static TreeView EscrituraTreeView(TreeView treeView, BasicClass bClass)
+        private static void EscrituraTreeView(TreeNode treeNode, BasicClass bClass)
         {
-            // Creamos un nodo con el nombre de la clase.
-            TreeNode myTreeNode = new TreeNode(bClass.Name);
-            //myTreeNode.Tag = bClass;
-            treeView.Nodes.Add(myTreeNode);
+            //myTreeNode.Tag = bClass;            
 
-            treeView.SelectedNode = myTreeNode;
+            foreach (Property property in bClass.Properties)
+                treeNode.Nodes.Add(property.ToString());
 
-            // Añadimos sus propiedades.
-            treeView = EscribePropertiesList(treeView, bClass.Properties);
-
-            foreach (BasicClass basicClass in bClass.insideClasses)
-                treeView = EscrituraTreeView(treeView, basicClass);
-
-            return treeView;
+            foreach (BasicClass basicClass in bClass.insideClasses)                      
+                EscrituraTreeView(treeNode.Nodes.Add(basicClass.Name), basicClass);
         }
 
-        private static TreeView EscribePropertiesList(TreeView treeView, List<Property> properties)
+        private static void EscribePropertiesList(TreeNode treeNode, List<Property> properties)
         {
-            foreach (Property property in properties)
-                treeView.Nodes.Add(property.ToString());
-
-            return treeView;
+            
         }
 
         
