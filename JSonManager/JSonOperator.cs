@@ -116,7 +116,7 @@ namespace JSonManager
 
             if (currentNode.NodeType == JSonNode.eNodeType.Property)
             {
-                Property newProp = new Property(parentClass, currentNode.LiteralName(), currentNode.LiteralValue(), "string", ",");
+                Property newProp = new Property(parentClass, currentNode.LiteralName(), currentNode.LiteralValue(), "string", ":");
                 Pila.Peek().Value.Properties.Add(newProp);
             }
 

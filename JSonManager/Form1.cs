@@ -103,7 +103,7 @@ namespace JSonManager
 
         private static void EscrituraTreeView(TreeNode treeNode, BasicClass bClass)
         {
-            //myTreeNode.Tag = bClass;            
+            treeNode.Tag = bClass;            
 
             foreach (Property property in bClass.Properties)
                 treeNode.Nodes.Add(property.ToString());
@@ -112,11 +112,28 @@ namespace JSonManager
                 EscrituraTreeView(treeNode.Nodes.Add(basicClass.Name), basicClass);
         }
 
-        private static void EscribePropertiesList(TreeNode treeNode, List<Property> properties)
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            
+            TreeNode tn = (sender as TreeView).SelectedNode;
+            if (tn.Tag != null)
+            {
+                LoadPropertiesList((BasicClass)tn.Tag);
+                LoadPropertiesTextBox((BasicClass)tn.Tag);
+            }
         }
 
-        
+        private void LoadPropertiesList(BasicClass basicClass)
+        {
+            lstProperties.Items.Clear();
+            foreach (Property property in basicClass.Properties)
+                lstProperties.Items.Add(property.Name);
+        }
+
+
+        private void LoadPropertiesTextBox(BasicClass basicClass)
+        {
+            txtProperties.Clear();
+            txtProperties.Text = String.Join(",", basicClass.Properties.Select(x => x.Name).ToArray());
+        }
     }
 }
