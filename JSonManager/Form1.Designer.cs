@@ -30,18 +30,20 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabTreeView = new System.Windows.Forms.TabPage();
+            this.btnSearchFile = new System.Windows.Forms.Button();
+            this.txtFile = new System.Windows.Forms.TextBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.txtProperties = new System.Windows.Forms.TextBox();
-            this.lstProperties = new System.Windows.Forms.ListBox();
-            this.txtPrefix = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnCopy = new System.Windows.Forms.Button();
+            this.txtEnclosuredProperties = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSufix = new System.Windows.Forms.TextBox();
-            this.txtEnclosuredProperties = new System.Windows.Forms.TextBox();
-            this.btnCopy = new System.Windows.Forms.Button();
-            this.txtFile = new System.Windows.Forms.TextBox();
-            this.btnSearchFile = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtPrefix = new System.Windows.Forms.TextBox();
+            this.txtProperties = new System.Windows.Forms.TextBox();
+            this.lstProperties = new System.Windows.Forms.ListBox();
+            this.txtUrl = new System.Windows.Forms.TextBox();
+            this.btnRequest = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabTreeView.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -60,6 +62,8 @@
             // 
             // tabTreeView
             // 
+            this.tabTreeView.Controls.Add(this.btnRequest);
+            this.tabTreeView.Controls.Add(this.txtUrl);
             this.tabTreeView.Controls.Add(this.btnSearchFile);
             this.tabTreeView.Controls.Add(this.txtFile);
             this.tabTreeView.Controls.Add(this.treeView1);
@@ -70,6 +74,25 @@
             this.tabTreeView.TabIndex = 0;
             this.tabTreeView.Text = "TreeView";
             this.tabTreeView.UseVisualStyleBackColor = true;
+            // 
+            // btnSearchFile
+            // 
+            this.btnSearchFile.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchFile.Location = new System.Drawing.Point(873, 19);
+            this.btnSearchFile.Name = "btnSearchFile";
+            this.btnSearchFile.Size = new System.Drawing.Size(86, 26);
+            this.btnSearchFile.TabIndex = 3;
+            this.btnSearchFile.Text = "Search";
+            this.btnSearchFile.UseVisualStyleBackColor = true;
+            this.btnSearchFile.Click += new System.EventHandler(this.btnSearchFile_Click);
+            // 
+            // txtFile
+            // 
+            this.txtFile.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFile.Location = new System.Drawing.Point(15, 19);
+            this.txtFile.Name = "txtFile";
+            this.txtFile.Size = new System.Drawing.Size(815, 26);
+            this.txtFile.TabIndex = 2;
             // 
             // treeView1
             // 
@@ -90,51 +113,33 @@
             this.tabPage2.Controls.Add(this.txtPrefix);
             this.tabPage2.Controls.Add(this.txtProperties);
             this.tabPage2.Controls.Add(this.lstProperties);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1065, 887);
+            this.tabPage2.Size = new System.Drawing.Size(1065, 882);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Properties";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // txtProperties
+            // btnCopy
             // 
-            this.txtProperties.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProperties.Location = new System.Drawing.Point(6, 384);
-            this.txtProperties.Multiline = true;
-            this.txtProperties.Name = "txtProperties";
-            this.txtProperties.Size = new System.Drawing.Size(554, 366);
-            this.txtProperties.TabIndex = 1;
+            this.btnCopy.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCopy.Location = new System.Drawing.Point(569, 183);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(82, 34);
+            this.btnCopy.TabIndex = 7;
+            this.btnCopy.Text = "Copy";
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
-            // lstProperties
+            // txtEnclosuredProperties
             // 
-            this.lstProperties.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstProperties.FormattingEnabled = true;
-            this.lstProperties.ItemHeight = 18;
-            this.lstProperties.Location = new System.Drawing.Point(3, 3);
-            this.lstProperties.Name = "lstProperties";
-            this.lstProperties.Size = new System.Drawing.Size(557, 364);
-            this.lstProperties.TabIndex = 0;
-            // 
-            // txtPrefix
-            // 
-            this.txtPrefix.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrefix.Location = new System.Drawing.Point(566, 50);
-            this.txtPrefix.Name = "txtPrefix";
-            this.txtPrefix.Size = new System.Drawing.Size(492, 26);
-            this.txtPrefix.TabIndex = 2;
-            this.txtPrefix.Text = "const properties = [";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(566, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 18);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Prefix";
+            this.txtEnclosuredProperties.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEnclosuredProperties.Location = new System.Drawing.Point(566, 223);
+            this.txtEnclosuredProperties.Multiline = true;
+            this.txtEnclosuredProperties.Name = "txtEnclosuredProperties";
+            this.txtEnclosuredProperties.Size = new System.Drawing.Size(492, 527);
+            this.txtEnclosuredProperties.TabIndex = 6;
             // 
             // label2
             // 
@@ -155,44 +160,62 @@
             this.txtSufix.TabIndex = 4;
             this.txtSufix.Text = "];";
             // 
-            // txtEnclosuredProperties
+            // label1
             // 
-            this.txtEnclosuredProperties.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEnclosuredProperties.Location = new System.Drawing.Point(566, 223);
-            this.txtEnclosuredProperties.Multiline = true;
-            this.txtEnclosuredProperties.Name = "txtEnclosuredProperties";
-            this.txtEnclosuredProperties.Size = new System.Drawing.Size(492, 527);
-            this.txtEnclosuredProperties.TabIndex = 6;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(566, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 18);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Prefix";
             // 
-            // btnCopy
+            // txtPrefix
             // 
-            this.btnCopy.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCopy.Location = new System.Drawing.Point(569, 183);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(82, 34);
-            this.btnCopy.TabIndex = 7;
-            this.btnCopy.Text = "Copy";
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            this.txtPrefix.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPrefix.Location = new System.Drawing.Point(566, 50);
+            this.txtPrefix.Name = "txtPrefix";
+            this.txtPrefix.Size = new System.Drawing.Size(492, 26);
+            this.txtPrefix.TabIndex = 2;
+            this.txtPrefix.Text = "const properties = [";
             // 
-            // txtFile
+            // txtProperties
             // 
-            this.txtFile.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFile.Location = new System.Drawing.Point(15, 19);
-            this.txtFile.Name = "txtFile";
-            this.txtFile.Size = new System.Drawing.Size(815, 26);
-            this.txtFile.TabIndex = 2;
+            this.txtProperties.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtProperties.Location = new System.Drawing.Point(6, 384);
+            this.txtProperties.Multiline = true;
+            this.txtProperties.Name = "txtProperties";
+            this.txtProperties.Size = new System.Drawing.Size(554, 366);
+            this.txtProperties.TabIndex = 1;
             // 
-            // btnSearchFile
+            // lstProperties
             // 
-            this.btnSearchFile.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearchFile.Location = new System.Drawing.Point(873, 19);
-            this.btnSearchFile.Name = "btnSearchFile";
-            this.btnSearchFile.Size = new System.Drawing.Size(86, 26);
-            this.btnSearchFile.TabIndex = 3;
-            this.btnSearchFile.Text = "Search";
-            this.btnSearchFile.UseVisualStyleBackColor = true;
-            this.btnSearchFile.Click += new System.EventHandler(this.btnSearchFile_Click);
+            this.lstProperties.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstProperties.FormattingEnabled = true;
+            this.lstProperties.ItemHeight = 18;
+            this.lstProperties.Location = new System.Drawing.Point(3, 3);
+            this.lstProperties.Name = "lstProperties";
+            this.lstProperties.Size = new System.Drawing.Size(557, 364);
+            this.lstProperties.TabIndex = 0;
+            // 
+            // txtUrl
+            // 
+            this.txtUrl.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUrl.Location = new System.Drawing.Point(15, 61);
+            this.txtUrl.Name = "txtUrl";
+            this.txtUrl.Size = new System.Drawing.Size(815, 26);
+            this.txtUrl.TabIndex = 4;
+            // 
+            // btnRequest
+            // 
+            this.btnRequest.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRequest.Location = new System.Drawing.Point(873, 61);
+            this.btnRequest.Name = "btnRequest";
+            this.btnRequest.Size = new System.Drawing.Size(86, 26);
+            this.btnRequest.TabIndex = 5;
+            this.btnRequest.Text = "Request";
+            this.btnRequest.UseVisualStyleBackColor = true;
+            this.btnRequest.Click += new System.EventHandler(this.btnRequest_Click);
             // 
             // Form1
             // 
@@ -227,6 +250,8 @@
         private System.Windows.Forms.TextBox txtPrefix;
         private System.Windows.Forms.Button btnSearchFile;
         private System.Windows.Forms.TextBox txtFile;
+        private System.Windows.Forms.Button btnRequest;
+        private System.Windows.Forms.TextBox txtUrl;
     }
 }
 

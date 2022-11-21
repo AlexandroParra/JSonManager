@@ -20,6 +20,9 @@ namespace JSonManager
     {
 
         private OpenFileDialog openFileDialog1;
+
+        private JSonReader jsonReader;
+
         public Form1()
         {
             InitializeComponent();
@@ -159,9 +162,8 @@ namespace JSonManager
                     foreach (string file in openFileDialog1.FileNames)
                     {
                         txtFile.Text = file;
-                        LecturaFichero();
+                        ReadFile(txtFile.Text);
                     }
-
                 }
                 catch (SecurityException ex)
                 {
@@ -172,21 +174,41 @@ namespace JSonManager
         }
 
 
-        private void LecturaFichero()
-        {
-            if (txtFile.Text != String.Empty)
+
+        private void btnRequest_Click(object sender, EventArgs e)
+        {            
+            if (txtUrl.Text != string.Empty)
             {
-                JSonReader jSonReader = new JSonReader(txtFile.Text);
-                JSonNode nodo = jSonReader.Read();
-
-                //EscribeFichero(nodo, @"D:\Herramientas\C#\JSonManager\JSonManager\JSonFiles\ContenidoNodo.txt");
-
-                JSonOperator Joperator = new JSonOperator(nodo);
-                List<BasicClass> basicClasses = Joperator.GetBasicClasses();
-
-                treeView1.Nodes.Clear();
-                EscrituraTreeView(treeView1.Nodes.Add(basicClasses[0].Name), basicClasses[0]);
+                RequestAPI(txtUrl.Text);
             }
+        }
+
+
+        private async void RequestAPI(string url)
+        {
+            string dato = await ApiConnector.Connect(url);
+            jsonReader = new JSonReader(dato);
+            LoadTreeViewFromJsonNode(jsonReader.Read());
+        }
+
+
+        private void ReadFile(string filePath)
+        {
+            if (filePath != String.Empty)
+            {
+                jsonReader = new JSonReader(new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete));
+                LoadTreeViewFromJsonNode(jsonReader.Read());
+            }
+        }
+
+
+        private void LoadTreeViewFromJsonNode(JSonNode nodo)
+        {            
+            JSonOperator Joperator = new JSonOperator(nodo);
+            List<BasicClass> basicClasses = Joperator.GetBasicClasses();
+
+            treeView1.Nodes.Clear();
+            EscrituraTreeView(treeView1.Nodes.Add(basicClasses[0].Name), basicClasses[0]);
         }
     }
 }

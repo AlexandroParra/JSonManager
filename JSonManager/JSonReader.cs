@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace JSonManager
 {
@@ -33,15 +34,25 @@ namespace JSonManager
 
         public string fileName { get; set; }
 
+        public string content { get; set; }
+
         private Stack<KeyValuePair<char, JSonNode>> jSonNodes { get; set; }
 
         private JSonNode previousNode { get; set; }
         private JSonNode currentNode { get; set; }
 
 
-        public JSonReader(string fileName)
+        public JSonReader(FileStream fs)
         {
-            this.fileName = fileName;
+            using (StreamReader reader = new StreamReader(fs, Encoding.UTF8))
+            {
+                content = reader.ReadToEnd();
+            }
+        }
+
+        public JSonReader(string jsonContent)
+        {
+            content = jsonContent;
         }
 
         public JSonNode Read()
@@ -54,11 +65,12 @@ namespace JSonManager
 
             try
             {
-                using (StreamReader sr = new StreamReader(fileName))
+                using (StringReader stringReader = new StringReader(content))
                 {
-                    while (sr.Peek() >= 0)
+
+                    while (stringReader.Peek() >= 0)
                     {
-                        char currentChar = (char)sr.Read();
+                        char currentChar = (char)stringReader.Read();
 
                         if (IsAMarker(currentChar))
                         {
@@ -94,6 +106,62 @@ namespace JSonManager
 
             return RootNode;
         }
+
+
+
+
+
+
+        //public JSonNode Read()
+        //{
+        //    readingState = eReadingState.none;
+        //    previousNode = null;
+        //    currentNode = null;
+
+        //    jSonNodes = new Stack<KeyValuePair<char, JSonNode>>();
+
+        //    try
+        //    {
+        //        using (StreamReader sr = new StreamReader(fileName))
+        //        {
+        //            while (sr.Peek() >= 0)
+        //            {
+        //                char currentChar = (char)sr.Read();
+
+        //                if (IsAMarker(currentChar))
+        //                {
+        //                    if (IsAGrouper(currentChar)) { ManageGrouper(currentChar); }
+
+        //                    if (IsASeparator(currentChar)) { ManageSeparator(currentChar); }
+
+        //                    if (IsAStringEnclouser(currentChar)) { ManageStringQuote(currentChar); }
+        //                }
+        //                else
+        //                {
+        //                    //Evitamos poner espacios o saltos de linea procedentes del JSon si no estamos leyendo un valor.
+        //                    if (OnlyInExpressions.Contains(currentChar))
+        //                    {
+        //                        if (readingState == eReadingState.BeginningOfExpression)
+        //                            currentNode.Append(currentChar);
+        //                    }
+        //                    else
+        //                    {
+        //                        currentNode.Append(currentChar);
+        //                    }
+        //                }
+        //            }
+        //        }
+
+        //        RootNode = previousNode;
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine("The process failed: {0}", e.ToString());
+        //    }
+
+        //    return RootNode;
+        //}
 
         #region Quotation Marks
 
