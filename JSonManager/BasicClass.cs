@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace JSonManager
 {
@@ -46,7 +47,28 @@ namespace JSonManager
             Parent = parent;
         }
 
+        public List<Property> GetPropertiesSub()
+        {
+            List<Property> sub = new List<Property>();
+
+            sub.AddRange(Properties);
+
+            return GetPropertiesSub(this,new List<Property>());
+        }
+
+        private List<Property> GetPropertiesSub(BasicClass basicClass, List<Property> properties)
+        {
+            properties.AddRange(basicClass.Properties);
+
+            foreach (BasicClass basicClassInside in basicClass.insideClasses)
+                GetPropertiesSub(basicClassInside, properties);
+
+            return properties;
+        }
+
     }
+
+
 
 
 }
