@@ -1,0 +1,102 @@
+/********************************************************************
+*   Extrae los títulos de los valores de los items de primer nivel  *
+*********************************************************************/
+
+var Nivel_0 = pm.response.json().list;
+var salida = "";
+var objeto = Nivel_0[0];
+
+for(const prop in objeto){
+    salida = salida + ";" + prop;
+}   
+
+console.log(salida.slice(1)); 
+
+
+/*************************************************************
+*    Extrae los valores de los items de primer nivel         *
+*************************************************************/
+
+var Nivel_0 = pm.response.json().list;
+
+for(var i=0 ; i<Nivel_0.length ; i++){
+
+    var objeto = Nivel_0[i];
+    var salida = "";
+
+    for(const prop in objeto){
+        salida = salida + ";" + objeto[prop];
+    }   
+
+    console.log(salida.slice(1)); 
+}
+
+
+/************************************************************
+*   Extrae productos con campos concretos.                  *
+*   Usado en el endpoint:                                   *
+*                          {{baseUrl}}/{{token}}/shows      *
+*************************************************************/
+
+var items = pm.response.json().list;
+for(var i=0 ; i<items.length ; i++){
+
+    var reg = items[i];
+    var dates = items[i].calendar_dates;
+
+    for(var iDates=0; iDates<dates.length; iDates++)
+    {
+        var salida = 
+            "Id: " + items[i].calendar_id + "; " +
+            "Title: " + items[i].calendar_title + "; " + 
+            "Date_Ini: "  + dates[iDates].date_min + "; " + 
+            "Date_Max: "  + dates[iDates].date_max + "; " 
+            
+        console.log(salida); 
+    }
+}
+
+
+/************************************************************
+*   Extrae campos concretos de la consulta de Eventos.      *
+*   Usado en el endpoint:                                   *
+*                         {{baseUrl}}/{{token}}/events/1071 *
+*************************************************************/
+
+var items = pm.response.json().list;
+for(var i=0 ; i<items.length ; i++){
+
+    var reg = items[i];
+    var dates = items[i].calendar_dates;
+    var salida = 
+            "Id: " + items[i].calendar_id + "; " +
+            "event_Id: " + items[i].event_id + "; " +
+            "event_title: " + items[i].event_title + "; " + 
+            "event_start: " + items[i].event_start + "; " + 
+            "event_end: " + items[i].event_end
+
+    console.log(salida); 
+}
+
+
+/*************************************************************
+*   Extrae campos concretos de Precio-Aforo.                 *
+*   Usado en el endpoint:                                    *
+*     {{baseUrl}}/{{token}}/capacityprices/calendar_id/1071/event_id/46809
+*************************************************************/
+
+var items = pm.response.json().list;
+for(var i=0 ; i<items.length ; i++){
+
+    var reg = items[i];
+    var salida = 
+            "id: " + items[i].id + "; " +
+            "title: " + items[i].title + "; " + 
+            "entradas: " + items[i].entradas + "; " + 
+            "vendidas: " + items[i].vendidas + "; " + 
+            "precio: " + items[i].precio + "; " + 
+            "precio2: " + items[i].price_2 + "; " + 
+            "is_available: " + items[i].is_available 
+            
+    console.log(salida); 
+}

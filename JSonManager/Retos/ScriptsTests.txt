@@ -1,0 +1,546 @@
+
+/******************************************************************************************
+*
+*
+*    	I N I C I O   D E   K I T   D E   T E S T S   P A R A   C A T E G O R I A S
+*
+*
+*******************************************************************************************/
+
+/*******************************************************************************
+*
+* Test que comprueba, medianamente, que este juego de Tests está donde toca.
+*
+********************************************************************************/
+pm.test("This scripts evaluates Categories Collection", function (){
+    pm.expect(pm.request.url.toString().indexOf("/categories")).to.be.greaterThan(0);
+});
+
+
+/*******************************************************************************
+*
+* Test que comprueba que el sevidor procesa correctamente la petición.
+*
+********************************************************************************/
+pm.test("Status response (server status)", function () {
+    pm.response.to.have.status(200);
+    pm.response.to.be.withBody;
+    pm.expect(pm.response.json().ErrorMessage).to.be.oneOf([undefined, null, ""]);
+});
+
+
+/********************************************************************************
+*
+* Test que comprueba que la petición de Categorías devuelve los datos establecidos.
+*
+********************************************************************************/
+pm.test("Categories: contains properties", function () {
+    const properties = ["id","category_title"];
+    properties.forEach((property) => pm.expect(jsonData.list[0]).to.have.property(property)); 
+});
+
+
+/*******************************************************************************************
+*
+*
+*     		 F I N   D E   K I T   D E   T E S T S   P A R A   C A T E G O R I A S
+*
+*
+*******************************************************************************************/
+
+
+
+
+/******************************************************************************************
+*
+*
+*    	I N I C I O   D E   K I T   D E   T E S T S   P A R A   C I U D A D E S
+*
+*
+*******************************************************************************************/
+
+/*******************************************************************************
+*
+* Test que comprueba, medianamente, que este juego de Tests está donde toca.
+*
+********************************************************************************/
+pm.test("This scripts evaluates Cities Collection", function (){
+    pm.expect(pm.request.url.toString().indexOf("/cities")).to.be.greaterThan(0);
+});
+
+
+/*******************************************************************************
+*
+* Test que comprueba que el sevidor procesa correctamente la petición.
+*
+********************************************************************************/
+pm.test("Status response (server status)", function () {
+    pm.response.to.have.status(200);
+    pm.response.to.be.withBody;
+    pm.expect(pm.response.json().ErrorMessage).to.be.oneOf([undefined, null, ""]);
+});
+
+
+/*******************************************************************************
+*
+* Test que comprueba que la petición de Ciudades devuelve los datos establecidos.
+*
+********************************************************************************/
+pm.test("Cities: contains properties", function () {
+    const properties = ["id","city_name","country_id","country_name"];
+    properties.forEach((property) => pm.expect(jsonData.list[0]).to.have.property(property)); 
+});
+
+
+/*******************************************************************************************
+*
+*
+*     			F I N   D E   K I T   D E   T E S T S   P A R A   C I U D A D E S
+*
+*
+*******************************************************************************************/
+
+
+
+
+/******************************************************************************************
+*
+*
+*    	I N I C I O   D E   K I T   D E   T E S T S   P A R A   R E C I N T O S
+*
+*
+*******************************************************************************************/
+
+/*******************************************************************************
+*
+* Test que comprueba, medianamente, que este juego de Tests está donde toca.
+*
+********************************************************************************/
+pm.test("This script evaluates Venues", function (){
+    pm.expect(pm.request.url.toString().indexOf("/venue")).to.be.greaterThan(0);
+});
+
+
+/*******************************************************************************
+*
+* Test que comprueba que el sevidor procesa correctamente la petición.
+*
+********************************************************************************/
+pm.test("Status response (server status)", function () {
+    pm.response.to.have.status(200);
+    pm.response.to.be.withBody;
+    pm.expect(pm.response.json().ErrorMessage).to.be.oneOf([undefined, null, ""]);
+});
+
+
+/*******************************************************************************
+*
+* Test que comprueba que la petición de Recintos devuelve los datos establecidos.
+*
+********************************************************************************/
+pm.test("Venues: contains properties", function () {
+    const properties = ["venue_id","venue_name","venue_name_name_link","venue_address","venue_locality","venue_type","venue_bus","venue_metro","venue_imagen_1","venue_imagen_2","venue_imagen_3","venue_city_id","venue_city","venue_city_link"];
+    properties.forEach((property) => pm.expect(jsonData.list[0]).to.have.property(property));  
+});
+
+
+/*******************************************************************************************
+*
+*
+*     			F I N   D E   K I T   D E   T E S T S   P A R A   R E C I N T O S
+*
+*
+*******************************************************************************************/
+
+
+
+
+/*******************************************************************************************
+*
+*
+*     		I N I C I O   D E   K I T   D E   T E S T S   P A R A   E V E N T O S
+*
+*
+*******************************************************************************************/
+
+/*******************************************************************************
+*
+* Test que comprueba, medianamente, que este juego de Tests está donde toca.
+*
+********************************************************************************/
+pm.test("This script evaluates Events", function (){
+    pm.expect(pm.request.url.toString().indexOf("/events")).to.be.greaterThan(0);
+});
+
+
+/*******************************************************************************
+*
+* Test que comprueba que el sevidor procesa correctamente la petición.
+*
+********************************************************************************/
+pm.test("Status response (server status)", function () {
+    pm.response.to.have.status(200);
+    pm.response.to.be.withBody;
+    pm.expect(pm.response.json().ErrorMessage).to.be.oneOf([undefined, null, ""]);
+});
+
+
+/********************************************************************************
+*
+* Test que comprueba que la petición de Eventos devuelve los datos establecidos.
+*
+********************************************************************************/
+pm.test("Events: contains properties", function () {
+    const properties = ["calendar_id","calendar_title","event_id","event_title","event_start","event_end","precio_min"];
+    properties.forEach((property) => pm.expect(jsonData.list[0]).to.have.property(property));  
+});
+
+/*******************************************************************************************
+*
+*
+*     			F I N   D E   K I T   D E   T E S T S   P A R A   E V E N T O S
+*
+*
+*******************************************************************************************/
+
+
+
+
+
+/*******************************************************************************************
+*
+*
+*     		I N I C I O   D E   K I T   D E   T E S T S   P A R A   P R O D U C T O S
+*
+*
+*******************************************************************************************/
+
+/*******************************************************************************
+*
+* Test que comprueba, medianamente, que este juego de Tests está donde toca.
+*
+********************************************************************************/
+pm.test("This script evaluates Products", function (){
+    pm.expect(pm.request.url.toString().indexOf("/shows")).to.be.greaterThan(0);
+});
+
+
+/*******************************************************************************
+*
+* Test que comprueba que el sevidor procesa correctamente la petición.
+*
+********************************************************************************/
+pm.test("Status response (server status)", function () {
+    pm.response.to.have.status(200);
+    pm.response.to.be.withBody;
+    pm.expect(pm.response.json().ErrorMessage).to.be.oneOf([undefined, null, ""]);
+});
+
+
+/********************************************************************************
+*
+* Test que comprueba que la petición de Productos devuelve los datos establecidos.
+*
+********************************************************************************/
+pm.test("Products: contains properties", function () {
+    const properties = ["calendar_id","calendar_title","calendar_description","calendar_subtitle","calendar_category_id","calendar_category_title","calendar_image_1","calendar_image_2","calendar_image_3","calendar_image_4","calendar_video","calendar_price_best","calendar_any_day","calendar_age_recommended_from","calendar_age_recommended_until","venue_id","venue_name","venue_name_name_link","venue_address","venue_locality","venue_type","venue_bus","venue_metro","venue_imagen_1","venue_imagen_2","venue_imagen_3","venue_city_id","venue_city","venue_city_link","economic_comision","payment_type","payment_iva","calendar_state"];
+    properties.forEach((property) => pm.expect(jsonData.list[0]).to.have.property(property));  
+});
+
+/*******************************************************************************************
+*
+*
+*     			F I N   D E   K I T   D E   T E S T S   P A R A   P R O D U C T O S
+*
+*
+*******************************************************************************************/
+
+
+
+
+
+
+
+/*******************************************************************************************
+*
+*
+*  I N I C I O   D E   K I T   D E   T E S T S   P A R A   P R E C I O S   Y   D I S P O N I B I L I D A D
+*
+*
+*******************************************************************************************/
+
+/*******************************************************************************
+*
+* Test que comprueba, medianamente, que este juego de Tests está donde toca.
+*
+********************************************************************************/
+pm.test("This scripts evaluates Prices and Availabilities", function (){
+    pm.expect(pm.request.url.toString().indexOf("/capacityprices")).to.be.greaterThan(0);
+});
+
+
+/*******************************************************************************
+*
+* Test que comprueba que el sevidor procesa correctamente la petición.
+*
+********************************************************************************/
+pm.test("Status response (server status)", function () {
+    pm.response.to.have.status(200);
+    pm.response.to.be.withBody;
+    pm.expect(pm.response.json().ErrorMessage).to.be.oneOf([undefined, null, ""]);
+});
+
+
+/********************************************************************************
+*
+* Test que comprueba que la petición de Productos devuelve los datos establecidos.
+*
+********************************************************************************/
+pm.test("Prices and Availabilities: contains properties", function () {
+    const properties = ["calendar_id","calendar_title","id_event","id","id_custom","map_id","sector_id","title","start","entradas","vendidas","precio","price_2","is_available"];
+    properties.forEach((property) => pm.expect(jsonData.list[0]).to.have.property(property));
+});
+
+
+/*******************************************************************************************
+*
+*
+*  F I N   D E   K I T   D E   T E S T S   P A R A   P R E C I O S   Y   D I S P O N I B I L I D A D
+*
+*
+*******************************************************************************************/
+
+
+
+
+/*******************************************************************************************
+*
+*
+*  		I N I C I O   D E   K I T   D E   T E S T S   P A R A   R E S E R V A S
+*
+*
+*******************************************************************************************/
+
+/*******************************************************************************
+*
+* Test que comprueba, medianamente, que este juego de Tests está donde toca.
+*
+********************************************************************************/
+pm.test("This scripts evaluates Reservations", function (){
+    pm.expect(pm.request.url.toString().indexOf("/booking")).to.be.greaterThan(0);
+});
+
+
+/*******************************************************************************
+*
+* Test que comprueba que el sevidor procesa correctamente la petición.
+*
+********************************************************************************/
+var jsonData = pm.response.json();
+pm.test("Status response (server status)", function () {
+    pm.response.to.have.status(200);
+    pm.response.to.be.withBody;
+    pm.expect(jsonData.ErrorMessage).to.be.oneOf([undefined, null, ""]);
+});
+
+
+/********************************************************************************
+*
+* Test que comprueba que la petición de Reserva devuelve los datos establecidos.
+*
+********************************************************************************/
+pm.test("Reservation: contains properties", function () {    
+    const rootProperties = ["booking_code","booking_message"];
+    rootProperties.forEach((property) => pm.expect(jsonData).to.have.property(property));
+
+    const successProperties = ["status","text"];
+    successProperties.forEach((property) => pm.expect(jsonData.success).to.have.property(property));
+
+    const bookingsRecordProperties = ["bookings_number","tickets_number","total_price","currency","created"];
+    bookingsRecordProperties.forEach((property) => pm.expect(jsonData.bookings_record[0]).to.have.property(property));
+
+    const ticketsProperties = ["calendar_id","event_id","locator"];
+    ticketsProperties.forEach((property) => pm.expect(jsonData.bookings_record[0].tickets[0]).to.have.property(property));
+
+    const pricesProperties = ["price_id","number","precio","seat_id"];
+    pricesProperties.forEach((property) => pm.expect(jsonData.bookings_record[0].tickets[0].prices[0]).to.have.property(property));
+
+});
+
+
+/***************************************************************************************
+ * Compares the prices objects inside of tickets from Response and Request data.
+ * @param {Object} requestTicketPrices prices JSON object sent in request to endpoint call
+ * @param {Object} responseTicketPrices prices JSON object received in response to endpoint call
+ ***************************************************************************************/
+function IsEqualPricesTickets (requestTicketPrices, responseTicketPrices)
+{
+    var varReturn = false;
+
+    if( requestTicketPrices == null && responseTicketPrices == null)
+        return true;
+
+    if( requestTicketPrices.length == responseTicketPrices.length ){
+
+        varReturn = true; // Si los arrays de precio tienen la misma longitud, ya tenemos una igualdad.
+
+        for(var i=0; i < requestTicketPrices.length && varReturn; i++){
+            varReturn = 
+                requestTicketPrices[i].price_id == responseTicketPrices[i].price_id &&
+                requestTicketPrices[i].number == responseTicketPrices[i].number;
+        }
+    }
+
+    return varReturn;
+}
+
+
+/***************************************************************************************
+ * Compares the tickets objects from Response and Request data.
+ * @param {Object} requestTicket JSON object sent in request to endpoint call.
+ * @param {Object} responseTicket JSON object received in response to endpoint call.
+ ***************************************************************************************/
+function IsEqualTickets (requestTicket, responseTicket)
+{    
+    if( requestTicket == null && responseTicket == null)
+        return true;
+            
+    return requestTicket.calendar_id == responseTicket.calendar_id &&
+           requestTicket.event_id == responseTicket.event_id &&
+           IsEqualPricesTickets(requestTicket.prices, responseTicket.prices);       
+}
+
+
+/********************************************************************************
+*
+* Test que comprueba que los datos de la respuesta coinciden con los de la petición de Reserva.
+*
+********************************************************************************/
+function checkReservationResult(requestData, responseData){
+    pm.test("Reservation: coherence between request and response data", function () {
+        responseData.bookings_record.forEach(function (booking_record){
+            
+            pm.expect(booking_record.tickets.length).to.be.greaterThan(0); //Comprueba que haya tickets asociados a la reserva
+            pm.expect(requestData.tickets.length).to.be.greaterThan(0); //Comprueba que haya tickets asociados a la reserva
+            pm.expect(requestData.tickets.length).to.be.equal(booking_record.tickets.length);
+
+            var arrayTicketsAreEquals = true;
+            for(var i=0; i < requestData.tickets.length && arrayTicketsAreEquals; i++){
+                arrayTicketsAreEquals = IsEqualTickets(requestData.tickets[i], booking_record.tickets[i]);
+            }
+            pm.expect(arrayTicketsAreEquals).to.be.equal(true);
+        });
+    });
+}
+
+var requestData = JSON.parse(request.data);
+var responseData = pm.response.json();
+checkReservationResult(requestData, responseData);
+
+
+/*******************************************************************************************
+*
+*
+*  		F I N   D E   K I T   D E   T E S T S   P A R A   R E S E R V A S
+*
+*
+*******************************************************************************************/
+
+
+
+
+
+
+
+
+/*******************************************************************************************
+*
+*
+*  		I N I C I O   D E   K I T   D E   T E S T S   P A R A   C O M P R A S
+*
+*
+*******************************************************************************************/
+
+/*******************************************************************************
+*
+* Test que comprueba, medianamente, que este juego de Tests está donde toca.
+*
+********************************************************************************/
+pm.test("This scripts evaluates Purchasing", function (){
+    pm.expect(pm.request.url.toString().indexOf("/confirm")).to.be.greaterThan(0);
+});
+
+
+/*******************************************************************************
+*
+* Test que comprueba que el sevidor procesa correctamente la petición.
+*
+********************************************************************************/
+pm.test("Status response (server status)", function () {
+    pm.response.to.have.status(200);
+    pm.response.to.be.withBody;
+    pm.expect(pm.response.json().ErrorMessage).to.be.oneOf([undefined, null, ""]);
+});
+
+
+/********************************************************************************
+*
+* Test que comprueba que la petición de Compra devuelve los datos establecidos.
+*
+********************************************************************************/
+pm.test("Purchasing: contains properties", function () {
+	const properties = ["booking_code","booking_message","locator","status","status","text"];
+	properties.forEach((property) => pm.expect(jsonData.list[0]).to.have.property(property));
+});
+
+
+/***************************************************************************************
+ * Compares the tickets objects from Response and Request data.
+ * @param {Object} requestTicket JSON object sent in request to endpoint call.
+ * @param {Object} responseTicket JSON object received in response to endpoint call.
+ * @return True if both of Tickets Objects have the same locator identifier.
+ ***************************************************************************************/
+function IsEqualTickets (requestTicket, responseTicket)
+{    
+    if( requestTicket == null && responseTicket == null)
+        return true;
+            
+    return requestTicket.locator == responseTicket.locator;       
+}
+
+
+/********************************************************************************
+*
+* Test que comprueba que los datos de la respuesta coinciden con los de la petición de Reserva.
+*
+********************************************************************************/
+function checkPurchasingResult(requestData, responseData){
+    pm.test("Purchasing: coherence between request and response data", function () {
+		
+		var requestBooking = requestData.bookings_record;
+		var responseBooking = responseData.bookings_confirm;		
+		
+        pm.expect(requestBooking.length).to.be.greaterThan(0); //Comprueba que la solicitud de la confirmación tenga registros de Reserva.
+		pm.expect(responseBooking.length).to.be.greaterThan(0); //Comprueba que la respuesta de la confirmación tenga registros de Reserva.
+        pm.expect(requestBooking.length).to.be.equal(responseBooking.length); // Comprueba que el número de registros de reserva coincida.
+
+		for(var iB=0; iB < responseBooking.length; iB++){
+
+            pm.expect(requestBooking[iB].tickets.length).to.be.greaterThan(0); //Comprueba que haya tickets asociados a la Reserva
+            pm.expect(responseBooking[iB].tickets.length).to.be.greaterThan(0); //Comprueba que haya tickets asociados a la Reserva
+            pm.expect(requestBooking[iB].tickets.length).to.be.equal(responseBooking[iB].tickets.length);
+
+            var arrayTicketsAreEquals = true;
+            for(var iT=0; iT < requestBooking[iB].tickets.length && arrayTicketsAreEquals; iT++){
+                arrayTicketsAreEquals = IsEqualTickets(requestBooking[iB].tickets[iT], responseBooking[iB].tickets[iT]);
+            }
+            pm.expect(arrayTicketsAreEquals).to.be.equal(true);
+        };
+    });
+}
+
+var requestData = JSON.parse(request.data);
+var responseData = pm.response.json();
+checkPurchasingResult(requestData, responseData);
+
+
