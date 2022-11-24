@@ -112,12 +112,18 @@ namespace JSonManager
         private static void EscrituraTreeView(TreeNode treeNode, BasicClass bClass)
         {
             treeNode.Tag = bClass;
+            int contador = 0;
 
             foreach (Property property in bClass.Properties)
                 treeNode.Nodes.Add(property.ToString());
 
             foreach (BasicClass basicClass in bClass.insideClasses)
-                EscrituraTreeView(treeNode.Nodes.Add(basicClass.Name), basicClass);
+            {
+                string formattedName = basicClass.Name;
+                if (formattedName == "{") { formattedName = bClass.Name + "[" + contador + "]"; }
+                EscrituraTreeView(treeNode.Nodes.Add(formattedName), basicClass);
+                contador++;
+            }
         }
 
 
@@ -129,19 +135,27 @@ namespace JSonManager
                 LoadPropertiesList((BasicClass)tn.Tag);
                 LoadPropertiesTextBoxes((BasicClass)tn.Tag);
             }
+            else
+                ClearPropertiesControls();
+
         }
 
-        private void LoadPropertiesList(BasicClass basicClass)
+        private void ClearPropertiesControls()
         {
             lstProperties.Items.Clear();
+            txtProperties.Clear();
+            txtEnclosuredProperties.Clear();
+        }
+
+
+        private void LoadPropertiesList(BasicClass basicClass)
+        {            
             foreach (Property property in basicClass.GetPropertiesSub())
                 lstProperties.Items.Add(property.Name);
         }
 
         private void LoadPropertiesTextBoxes(BasicClass basicClass)
         {
-            txtProperties.Clear();
-            txtEnclosuredProperties.Clear();
             txtProperties.Text = String.Join(",", basicClass.GetPropertiesSub().Select(x => x.Name).ToArray());
             txtEnclosuredProperties.Text = txtPrefix.Text + txtProperties.Text + txtSufix.Text;
         }

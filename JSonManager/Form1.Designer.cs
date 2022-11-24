@@ -30,9 +30,16 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabTreeView = new System.Windows.Forms.TabPage();
-            this.btnSearchFile = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.txtUrl = new System.Windows.Forms.TextBox();
             this.txtFile = new System.Windows.Forms.TextBox();
+            this.btnRequest = new System.Windows.Forms.Button();
+            this.btnSearchFile = new System.Windows.Forms.Button();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnCopy = new System.Windows.Forms.Button();
             this.txtEnclosuredProperties = new System.Windows.Forms.TextBox();
@@ -42,10 +49,12 @@
             this.txtPrefix = new System.Windows.Forms.TextBox();
             this.txtProperties = new System.Windows.Forms.TextBox();
             this.lstProperties = new System.Windows.Forms.ListBox();
-            this.txtUrl = new System.Windows.Forms.TextBox();
-            this.btnRequest = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabTreeView.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,55 +62,126 @@
             // 
             this.tabControl1.Controls.Add(this.tabTreeView);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(-7, 0);
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1073, 913);
+            this.tabControl1.Size = new System.Drawing.Size(1068, 943);
             this.tabControl1.TabIndex = 1;
             // 
             // tabTreeView
             // 
-            this.tabTreeView.Controls.Add(this.btnRequest);
-            this.tabTreeView.Controls.Add(this.txtUrl);
-            this.tabTreeView.Controls.Add(this.btnSearchFile);
-            this.tabTreeView.Controls.Add(this.txtFile);
-            this.tabTreeView.Controls.Add(this.treeView1);
+            this.tabTreeView.Controls.Add(this.panel1);
+            this.tabTreeView.Controls.Add(this.tabControl2);
             this.tabTreeView.Location = new System.Drawing.Point(4, 27);
             this.tabTreeView.Name = "tabTreeView";
             this.tabTreeView.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTreeView.Size = new System.Drawing.Size(1065, 882);
+            this.tabTreeView.Size = new System.Drawing.Size(1060, 912);
             this.tabTreeView.TabIndex = 0;
-            this.tabTreeView.Text = "TreeView";
+            this.tabTreeView.Text = "Data Load";
             this.tabTreeView.UseVisualStyleBackColor = true;
             // 
-            // btnSearchFile
+            // panel1
             // 
-            this.btnSearchFile.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearchFile.Location = new System.Drawing.Point(873, 19);
-            this.btnSearchFile.Name = "btnSearchFile";
-            this.btnSearchFile.Size = new System.Drawing.Size(86, 26);
-            this.btnSearchFile.TabIndex = 3;
-            this.btnSearchFile.Text = "Search";
-            this.btnSearchFile.UseVisualStyleBackColor = true;
-            this.btnSearchFile.Click += new System.EventHandler(this.btnSearchFile_Click);
+            this.panel1.Controls.Add(this.txtUrl);
+            this.panel1.Controls.Add(this.txtFile);
+            this.panel1.Controls.Add(this.btnRequest);
+            this.panel1.Controls.Add(this.btnSearchFile);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1054, 106);
+            this.panel1.TabIndex = 7;
+            // 
+            // txtUrl
+            // 
+            this.txtUrl.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUrl.Location = new System.Drawing.Point(7, 54);
+            this.txtUrl.Name = "txtUrl";
+            this.txtUrl.Size = new System.Drawing.Size(947, 26);
+            this.txtUrl.TabIndex = 15;
             // 
             // txtFile
             // 
             this.txtFile.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFile.Location = new System.Drawing.Point(15, 19);
+            this.txtFile.Location = new System.Drawing.Point(7, 11);
             this.txtFile.Name = "txtFile";
-            this.txtFile.Size = new System.Drawing.Size(815, 26);
-            this.txtFile.TabIndex = 2;
+            this.txtFile.Size = new System.Drawing.Size(947, 26);
+            this.txtFile.TabIndex = 14;
+            // 
+            // btnRequest
+            // 
+            this.btnRequest.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRequest.Location = new System.Drawing.Point(960, 53);
+            this.btnRequest.Name = "btnRequest";
+            this.btnRequest.Size = new System.Drawing.Size(86, 29);
+            this.btnRequest.TabIndex = 13;
+            this.btnRequest.Text = "Request";
+            this.btnRequest.UseVisualStyleBackColor = true;
+            this.btnRequest.Click += new System.EventHandler(this.btnRequest_Click);
+            // 
+            // btnSearchFile
+            // 
+            this.btnSearchFile.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchFile.Location = new System.Drawing.Point(960, 11);
+            this.btnSearchFile.Name = "btnSearchFile";
+            this.btnSearchFile.Size = new System.Drawing.Size(86, 29);
+            this.btnSearchFile.TabIndex = 12;
+            this.btnSearchFile.Text = "Search";
+            this.btnSearchFile.UseVisualStyleBackColor = true;
+            this.btnSearchFile.Click += new System.EventHandler(this.btnSearchFile_Click);
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage1);
+            this.tabControl2.Controls.Add(this.tabPage3);
+            this.tabControl2.Location = new System.Drawing.Point(3, 115);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(1059, 783);
+            this.tabControl2.TabIndex = 6;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.treeView1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1051, 752);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Content Tree";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // treeView1
             // 
-            this.treeView1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeView1.Location = new System.Drawing.Point(15, 104);
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(818, 777);
-            this.treeView1.TabIndex = 1;
+            this.treeView1.Size = new System.Drawing.Size(1045, 746);
+            this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.textBox1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1051, 752);
+            this.tabPage3.TabIndex = 1;
+            this.tabPage3.Text = "Request Body";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(3, 3);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(1045, 746);
+            this.textBox1.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -116,7 +196,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1065, 882);
+            this.tabPage2.Size = new System.Drawing.Size(1060, 912);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Properties";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -198,37 +278,23 @@
             this.lstProperties.Size = new System.Drawing.Size(557, 364);
             this.lstProperties.TabIndex = 0;
             // 
-            // txtUrl
-            // 
-            this.txtUrl.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUrl.Location = new System.Drawing.Point(15, 61);
-            this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(815, 26);
-            this.txtUrl.TabIndex = 4;
-            // 
-            // btnRequest
-            // 
-            this.btnRequest.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRequest.Location = new System.Drawing.Point(873, 61);
-            this.btnRequest.Name = "btnRequest";
-            this.btnRequest.Size = new System.Drawing.Size(86, 26);
-            this.btnRequest.TabIndex = 5;
-            this.btnRequest.Text = "Request";
-            this.btnRequest.UseVisualStyleBackColor = true;
-            this.btnRequest.Click += new System.EventHandler(this.btnRequest_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 912);
+            this.ClientSize = new System.Drawing.Size(1068, 943);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabTreeView.ResumeLayout(false);
-            this.tabTreeView.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
@@ -239,7 +305,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabTreeView;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.ListBox lstProperties;
         private System.Windows.Forms.TextBox txtProperties;
         private System.Windows.Forms.Button btnCopy;
@@ -248,10 +313,16 @@
         private System.Windows.Forms.TextBox txtSufix;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtPrefix;
-        private System.Windows.Forms.Button btnSearchFile;
-        private System.Windows.Forms.TextBox txtFile;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnRequest;
+        private System.Windows.Forms.Button btnSearchFile;
         private System.Windows.Forms.TextBox txtUrl;
+        private System.Windows.Forms.TextBox txtFile;
     }
 }
 

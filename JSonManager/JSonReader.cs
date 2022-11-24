@@ -101,7 +101,7 @@ namespace JSonManager
             }
             catch (Exception e)
             {
-                Console.WriteLine("The process failed: {0}", e.ToString());
+                Console.WriteLine("A Json format error has been founded: {0}", e.ToString());
             }
 
             return RootNode;
