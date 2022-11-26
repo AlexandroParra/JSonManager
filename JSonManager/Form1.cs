@@ -23,6 +23,8 @@ namespace JSonManager
 
         private JSonReader jsonReader;
 
+        private PropertiesFormControls propFrmControls;
+
         public Form1()
         {
             InitializeComponent();
@@ -32,6 +34,8 @@ namespace JSonManager
             openFileDialog1 = new OpenFileDialog();
 
             #endregion
+
+            propFrmControls = new PropertiesFormControls(treeView1, lstProperties, txtEnclosuredProperties, txtPrefix, txtSufix, txtSeparator);
 
         }
 
@@ -96,6 +100,7 @@ namespace JSonManager
             }
         }
 
+
         private static void EscrituraRecursiva(JSonNode nodo, StreamWriter sw, int tabulador)
         {
             int miTabulador = tabulador;
@@ -109,15 +114,16 @@ namespace JSonManager
                 EscrituraRecursiva(nodo.HermanoMenor, sw, miTabulador);
         }
 
-        private static void EscrituraTreeView(TreeNode treeNode, BasicClass bClass)
+
+        private static void EscrituraTreeView(TreeNode treeNode, StringBaseClass bClass)
         {
             treeNode.Tag = bClass;
             int contador = 0;
 
-            foreach (Property property in bClass.Properties)
+            foreach (StringBaseProperty property in bClass.Properties)
                 treeNode.Nodes.Add(property.ToString());
 
-            foreach (BasicClass basicClass in bClass.insideClasses)
+            foreach (StringBaseClass basicClass in bClass.insideClasses)
             {
                 string formattedName = basicClass.Name;
                 if (formattedName == "{") { formattedName = bClass.Name + "[" + contador + "]"; }
@@ -127,43 +133,12 @@ namespace JSonManager
         }
 
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            TreeNode tn = (sender as TreeView).SelectedNode;
-            if (tn.Tag != null)
-            {
-                LoadPropertiesList((BasicClass)tn.Tag);
-                LoadPropertiesTextBoxes((BasicClass)tn.Tag);
-            }
-            else
-                ClearPropertiesControls();
-
-        }
-
-        private void ClearPropertiesControls()
-        {
-            lstProperties.Items.Clear();
-            txtProperties.Clear();
-            txtEnclosuredProperties.Clear();
-        }
-
-
-        private void LoadPropertiesList(BasicClass basicClass)
-        {            
-            foreach (Property property in basicClass.GetPropertiesSub())
-                lstProperties.Items.Add(property.Name);
-        }
-
-        private void LoadPropertiesTextBoxes(BasicClass basicClass)
-        {
-            txtProperties.Text = String.Join(",", basicClass.GetPropertiesSub().Select(x => x.Name).ToArray());
-            txtEnclosuredProperties.Text = txtPrefix.Text + txtProperties.Text + txtSufix.Text;
-        }
 
         private void btnCopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetDataObject(txtEnclosuredProperties.Text);
         }
+
 
         private void btnSearchFile_Click(object sender, EventArgs e)
         {
@@ -186,7 +161,6 @@ namespace JSonManager
                 }
             }
         }
-
 
 
         private void btnRequest_Click(object sender, EventArgs e)
@@ -219,7 +193,7 @@ namespace JSonManager
         private void LoadTreeViewFromJsonNode(JSonNode nodo)
         {            
             JSonOperator Joperator = new JSonOperator(nodo);
-            List<BasicClass> basicClasses = Joperator.GetBasicClasses();
+            List<StringBaseClass> basicClasses = Joperator.GetStringBaseClasses();
 
             treeView1.Nodes.Clear();
             EscrituraTreeView(treeView1.Nodes.Add(basicClasses[0].Name), basicClasses[0]);

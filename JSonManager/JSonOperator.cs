@@ -26,14 +26,14 @@ namespace JSonManager
             return groups;
         }
 
-        public List<BasicClass> GetBasicClasses()
+        public List<StringBaseClass> GetStringBaseClasses()
         {
-            List<BasicClass> basicClasses = new List<BasicClass>();            
-            Stack<KeyValuePair<string, BasicClass>> stack = new Stack<KeyValuePair<string, BasicClass>>();
+            List<StringBaseClass> basicClasses = new List<StringBaseClass>();            
+            Stack<KeyValuePair<string, StringBaseClass>> stack = new Stack<KeyValuePair<string, StringBaseClass>>();
             //Creamos el Objeto Raiz, de donde colgará toda la estructura de los datos Json.
-            stack.Push(new KeyValuePair<string, BasicClass>("{", new BasicClass("rootObject", null)));
+            stack.Push(new KeyValuePair<string, StringBaseClass>("{", new StringBaseClass("rootObject", null)));
             basicClasses.Add(stack.Peek().Value);
-            basicClasses = TreeCollector<BasicClass, KeyValuePair<string, BasicClass>>(_rootNode.Valor, basicClasses, stack, BasicClassesExtractor);
+            basicClasses = TreeCollector<StringBaseClass, KeyValuePair<string, StringBaseClass>>(_rootNode.Valor, basicClasses, stack, BasicClassesExtractor);
 
             return basicClasses;
         }
@@ -95,28 +95,28 @@ namespace JSonManager
         /// <param name="Lista">Lista que contendrá el nombre de objeto o grupo de objetos.</param>
         /// <returns>Devuelve <paramref name="Lista"/> con un elemento más, si <paramref name="currentNode"/>
         /// cumple con las condiciones necesarias.</returns>
-        private List<BasicClass> BasicClassesExtractor(JSonNode currentNode, List<BasicClass> Lista, Stack<KeyValuePair<string, BasicClass>> Pila)
+        private List<StringBaseClass> BasicClassesExtractor(JSonNode currentNode, List<StringBaseClass> Lista, Stack<KeyValuePair<string, StringBaseClass>> Pila)
         {
-            BasicClass parentClass = Pila.Peek().Value;
+            StringBaseClass parentClass = Pila.Peek().Value;
 
             //Se ha encontrado un array de objetos.
             if (currentNode.Valor != null && IsAGroupOfObjects(currentNode))
             {
-                BasicClass bc = new BasicClass(currentNode.LiteralName(), parentClass);
+                StringBaseClass bc = new StringBaseClass(currentNode.LiteralName(), parentClass);
                 parentClass.insideClasses.Add(bc);
-                Pila.Push(new KeyValuePair<string, BasicClass>("[",bc));
+                Pila.Push(new KeyValuePair<string, StringBaseClass>("[",bc));
             }
 
             if (IsAnObject(currentNode))
             {
-                BasicClass bc = new BasicClass(currentNode.LiteralName(), parentClass);
+                StringBaseClass bc = new StringBaseClass(currentNode.LiteralName(), parentClass);
                 parentClass.insideClasses.Add(bc);
-                Pila.Push(new KeyValuePair<string, BasicClass>("{", bc));
+                Pila.Push(new KeyValuePair<string, StringBaseClass>("{", bc));
             }
 
             if (currentNode.NodeType == JSonNode.eNodeType.Property)
             {
-                Property newProp = new Property(parentClass, currentNode.LiteralName(), currentNode.LiteralValue(), "string", ":");
+                StringBaseProperty newProp = new StringBaseProperty(parentClass, currentNode.LiteralName(), currentNode.LiteralValue(), "string", ":");
                 Pila.Peek().Value.Properties.Add(newProp);
             }
 
