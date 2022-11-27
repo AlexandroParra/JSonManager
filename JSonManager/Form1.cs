@@ -21,9 +21,7 @@ namespace JSonManager
 
         private OpenFileDialog openFileDialog1;
 
-        private JSonReader jsonReader;
-
-        private PropertiesFormControls propFrmControls;
+        private JSonReader jSonReader;
 
         public Form1()
         {
@@ -35,7 +33,20 @@ namespace JSonManager
 
             #endregion
 
-            propFrmControls = new PropertiesFormControls(treeView1, lstProperties, txtEnclosuredProperties, txtPrefix, txtSufix, txtSeparator);
+            #region Asignación de los controles a la estructura de clases que soporta el comportamiento a nivel de formulario.
+
+            //********************************************************************************************
+            //
+            // El objeto treeView1 será la fuente de datos para el objeto que gestiona las propiedades.
+            // El código de este formulario deberá contener la siguiente instrucción:
+            //
+            //          .SBClassFormControls().LoadTreeView(treeView1);
+            //
+            //********************************************************************************************
+
+            _ = new PropertiesFormControls(treeView1, lstProperties, txtEnclosuredProperties, txtPrefix, txtSufix, txtSeparator);
+
+            #endregion
 
         }
 
@@ -78,62 +89,6 @@ namespace JSonManager
         }
 
 
-        private void EscribeFichero(JSonNode nodo, string nombreFichero)
-        {
-
-            int tabulador = 0;
-            try
-            {
-                //Pass the filepath and filename to the StreamWriter Constructor
-                StreamWriter sw = new StreamWriter(nombreFichero);
-                EscrituraRecursiva(nodo, sw, tabulador);
-                //Close the file
-                sw.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Executing finally block.");
-            }
-        }
-
-
-        private static void EscrituraRecursiva(JSonNode nodo, StreamWriter sw, int tabulador)
-        {
-            int miTabulador = tabulador;
-            sw.Write(string.Empty.PadLeft(tabulador, '\t') + nodo.Content);
-            sw.Write("\r\n");
-
-            if (nodo.Valor != null)
-                EscrituraRecursiva(nodo.Valor, sw, ++tabulador);
-
-            if (nodo.HermanoMenor != null)
-                EscrituraRecursiva(nodo.HermanoMenor, sw, miTabulador);
-        }
-
-
-        private static void EscrituraTreeView(TreeNode treeNode, StringBaseClass bClass)
-        {
-            treeNode.Tag = bClass;
-            int contador = 0;
-
-            foreach (StringBaseProperty property in bClass.Properties)
-                treeNode.Nodes.Add(property.ToString());
-
-            foreach (StringBaseClass basicClass in bClass.insideClasses)
-            {
-                string formattedName = basicClass.Name;
-                if (formattedName == "{") { formattedName = bClass.Name + "[" + contador + "]"; }
-                EscrituraTreeView(treeNode.Nodes.Add(formattedName), basicClass);
-                contador++;
-            }
-        }
-
-
-
         private void btnCopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetDataObject(txtEnclosuredProperties.Text);
@@ -156,7 +111,7 @@ namespace JSonManager
                 }
                 catch (SecurityException ex)
                 {
-                    MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
+                    MessageBox.Show($"Error reading file.\n\nError message: {ex.Message}\n\n" +
                     $"Details:\n\n{ex.StackTrace}");
                 }
             }
@@ -175,8 +130,8 @@ namespace JSonManager
         private async void RequestAPI(string url)
         {
             string dato = await ApiConnector.Connect(url);
-            jsonReader = new JSonReader(dato);
-            LoadTreeViewFromJsonNode(jsonReader.Read());
+            jSonReader = new JSonReader(dato);
+            LoadTreeViewFromJSonData(jSonReader);
         }
 
 
@@ -184,19 +139,15 @@ namespace JSonManager
         {
             if (filePath != String.Empty)
             {
-                jsonReader = new JSonReader(new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete));
-                LoadTreeViewFromJsonNode(jsonReader.Read());
+                jSonReader = new JSonReader(new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete));
+                LoadTreeViewFromJSonData(jSonReader);
             }
         }
 
 
-        private void LoadTreeViewFromJsonNode(JSonNode nodo)
-        {            
-            JSonOperator Joperator = new JSonOperator(nodo);
-            List<StringBaseClass> basicClasses = Joperator.GetStringBaseClasses();
-
-            treeView1.Nodes.Clear();
-            EscrituraTreeView(treeView1.Nodes.Add(basicClasses[0].Name), basicClasses[0]);
+        private void LoadTreeViewFromJSonData(JSonReader jSonReader)
+        {
+            JSonReader.GetJSonOperator(jSonReader).SBClassFormControls().LoadTreeView(treeView1);
         }
     }
 }

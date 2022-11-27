@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JSonManager
 {
-    public class StringBaseProperty
+    internal class StringBaseProperty
     {
         public readonly StringBaseClass Parent;
         public string Name { get; set; }

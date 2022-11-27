@@ -12,7 +12,7 @@ namespace JSonManager
     /// La idea es que sea esta clase la que alimente al formulario y evite que haya código
     /// de la gestión del árbol en él.
     /// </summary>
-    public class SBPropertyManager
+    internal class SBPropertyManager
     {
         StringBaseClass _sbc;
         public SBPropertyManager(StringBaseClass SBC)

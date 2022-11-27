@@ -6,8 +6,13 @@ using System.Text;
 
 namespace JSonManager
 {
-
-    public class JSonReader
+    /// <summary>
+    /// Clase que, leyendo información de un fichero o recogiendo la respuesta de un API, en formato JSon, genera un árbol 
+    /// standard para la interpretación agil, por parte del ser humano, del contenido de esta información.
+    /// Herramientas como Postman, Insomnia o cualquier otro editor o visor de información JSon muestra el contenido JSon
+    /// en un árbol de este estilo.
+    /// </summary>
+    internal class JSonReader
     {
         private enum eReadingState
         {
@@ -40,7 +45,6 @@ namespace JSonManager
 
         private JSonNode previousNode { get; set; }
         private JSonNode currentNode { get; set; }
-
 
         public JSonReader(FileStream fs)
         {
@@ -107,61 +111,14 @@ namespace JSonManager
             return RootNode;
         }
 
+        public static JSonOperator GetJSonOperator(JSonReader jSonReader)
+        {
+            if (string.IsNullOrEmpty(jSonReader.content) && string.IsNullOrEmpty(jSonReader.fileName))
+                return null;
 
+            return new JSonOperator(jSonReader.Read());
+        }
 
-
-
-
-        //public JSonNode Read()
-        //{
-        //    readingState = eReadingState.none;
-        //    previousNode = null;
-        //    currentNode = null;
-
-        //    jSonNodes = new Stack<KeyValuePair<char, JSonNode>>();
-
-        //    try
-        //    {
-        //        using (StreamReader sr = new StreamReader(fileName))
-        //        {
-        //            while (sr.Peek() >= 0)
-        //            {
-        //                char currentChar = (char)sr.Read();
-
-        //                if (IsAMarker(currentChar))
-        //                {
-        //                    if (IsAGrouper(currentChar)) { ManageGrouper(currentChar); }
-
-        //                    if (IsASeparator(currentChar)) { ManageSeparator(currentChar); }
-
-        //                    if (IsAStringEnclouser(currentChar)) { ManageStringQuote(currentChar); }
-        //                }
-        //                else
-        //                {
-        //                    //Evitamos poner espacios o saltos de linea procedentes del JSon si no estamos leyendo un valor.
-        //                    if (OnlyInExpressions.Contains(currentChar))
-        //                    {
-        //                        if (readingState == eReadingState.BeginningOfExpression)
-        //                            currentNode.Append(currentChar);
-        //                    }
-        //                    else
-        //                    {
-        //                        currentNode.Append(currentChar);
-        //                    }
-        //                }
-        //            }
-        //        }
-
-        //        RootNode = previousNode;
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine("The process failed: {0}", e.ToString());
-        //    }
-
-        //    return RootNode;
-        //}
 
         #region Quotation Marks
 

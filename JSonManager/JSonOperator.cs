@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace JSonManager
 {
-    public class JSonOperator
+    internal class JSonOperator
     {
         private readonly JSonNode _rootNode;
 
@@ -26,7 +27,8 @@ namespace JSonManager
             return groups;
         }
 
-        public List<StringBaseClass> GetStringBaseClasses()
+
+        public StringBaseClass GetStringBaseClass()
         {
             List<StringBaseClass> basicClasses = new List<StringBaseClass>();            
             Stack<KeyValuePair<string, StringBaseClass>> stack = new Stack<KeyValuePair<string, StringBaseClass>>();
@@ -35,8 +37,60 @@ namespace JSonManager
             basicClasses.Add(stack.Peek().Value);
             basicClasses = TreeCollector<StringBaseClass, KeyValuePair<string, StringBaseClass>>(_rootNode.Valor, basicClasses, stack, BasicClassesExtractor);
 
-            return basicClasses;
+            return basicClasses[0];
         }
+
+
+        public SBClassFormControls SBClassFormControls()
+        {
+            return new SBClassFormControls(GetStringBaseClass());
+        }
+
+        #region Escritura en Fichero.
+
+        public void SaveAsFile(string fileName)
+        {
+            EscribeFichero(_rootNode, fileName);
+        }
+
+
+        private void EscribeFichero(JSonNode nodo, string nombreFichero)
+        {
+
+            int tabulador = 0;
+            try
+            {
+                //Pass the filepath and filename to the StreamWriter Constructor
+                StreamWriter sw = new StreamWriter(nombreFichero);
+                EscrituraRecursiva(nodo, sw, tabulador);
+                //Close the file
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executing finally block.");
+            }
+        }
+
+
+        private static void EscrituraRecursiva(JSonNode nodo, StreamWriter sw, int tabulador)
+        {
+            int miTabulador = tabulador;
+            sw.Write(string.Empty.PadLeft(tabulador, '\t') + nodo.Content);
+            sw.Write("\r\n");
+
+            if (nodo.Valor != null)
+                EscrituraRecursiva(nodo.Valor, sw, ++tabulador);
+
+            if (nodo.HermanoMenor != null)
+                EscrituraRecursiva(nodo.HermanoMenor, sw, miTabulador);
+        }
+
+        #endregion
 
 
         /// <summary>
@@ -84,7 +138,6 @@ namespace JSonManager
 
             return Lista;
         }
-
 
 
         /// <summary>
@@ -149,10 +202,12 @@ namespace JSonManager
             return Lista;
         }
 
+
         private bool IsAnObject(JSonNode currentNode)
         {
             return currentNode.NodeType == JSonNode.eNodeType.Object;
         }
+
 
         private bool IsAGroupOfObjects(JSonNode currentNode)
         {
