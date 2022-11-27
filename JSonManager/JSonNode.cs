@@ -27,6 +27,8 @@ namespace JSonManager
 
         private StringBuilder sbContent;
 
+        private int separatorPosition;
+
         public string Content { get { return sbContent.ToString().TrimEnd().TrimStart(); } }
 
         public JSonNode Valor   { get; set; }
@@ -43,14 +45,13 @@ namespace JSonManager
 
         public string LiteralName()
         {
-            string[] splittedContent = sbContent.ToString().Split(':');
-            return splittedContent[0];
+            separatorPosition = sbContent.ToString().IndexOf(':');                        
+            return (separatorPosition > -1)?sbContent.ToString().Substring(0,separatorPosition): sbContent.ToString();
         }
 
         public string LiteralValue()
-        {            
-            string[] splittedContent = sbContent.ToString().Split(':');
-            return splittedContent[splittedContent.Length - 1];
+        {
+            return sbContent.ToString().Substring(separatorPosition + 1);
         }
 
         public eNodeType GetNodeType()

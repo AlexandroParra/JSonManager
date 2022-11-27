@@ -9,10 +9,11 @@ namespace JSonManager
 {
     internal class JSonOperator
     {
+        private const string _TITLE_VALUE_SEPARATOR = ":";
         private readonly JSonNode _rootNode;
 
         private delegate List<T> SimpleCollector<T>(JSonNode currentNode, List<T> Lista);
-        private delegate List<T> StackedCollector<T,J>(JSonNode currentNode, List<T> Lista, Stack<J> Pila);
+        private delegate List<T> StackedCollector<T, J>(JSonNode currentNode, List<T> Lista, Stack<J> Pila);
 
         public JSonOperator(JSonNode rootNode)
         {
@@ -30,7 +31,7 @@ namespace JSonManager
 
         public StringBaseClass GetStringBaseClass()
         {
-            List<StringBaseClass> basicClasses = new List<StringBaseClass>();            
+            List<StringBaseClass> basicClasses = new List<StringBaseClass>();
             Stack<KeyValuePair<string, StringBaseClass>> stack = new Stack<KeyValuePair<string, StringBaseClass>>();
             //Creamos el Objeto Raiz, de donde colgará toda la estructura de los datos Json.
             stack.Push(new KeyValuePair<string, StringBaseClass>("{", new StringBaseClass("rootObject", null)));
@@ -126,7 +127,7 @@ namespace JSonManager
         /// <param name="func">Función que recibe por parámetros Nodo Actual y una lista de valores y realiza una evaluación
         /// con la que, presuntamente, agrega un elemento a la lista.</param>
         /// <returns>Devuelve una lista de valores que han cumplido la lógica de <paramref name="func"/>. </returns>
-        static private List<T> TreeCollector<T,J>(JSonNode currentNode, List<T> Lista, Stack<J> Pila, StackedCollector<T,J> func)
+        static private List<T> TreeCollector<T, J>(JSonNode currentNode, List<T> Lista, Stack<J> Pila, StackedCollector<T, J> func)
         {
             Lista = func(currentNode, Lista, Pila); // Ejecutamos la función con los nuevos nodos.
 
@@ -157,7 +158,7 @@ namespace JSonManager
             {
                 StringBaseClass bc = new StringBaseClass(currentNode.LiteralName(), parentClass);
                 parentClass.insideClasses.Add(bc);
-                Pila.Push(new KeyValuePair<string, StringBaseClass>("[",bc));
+                Pila.Push(new KeyValuePair<string, StringBaseClass>("[", bc));
             }
 
             if (IsAnObject(currentNode))
@@ -169,11 +170,11 @@ namespace JSonManager
 
             if (currentNode.NodeType == JSonNode.eNodeType.Property)
             {
-                StringBaseProperty newProp = new StringBaseProperty(parentClass, currentNode.LiteralName(), currentNode.LiteralValue(), "string", ":");
+                StringBaseProperty newProp = new StringBaseProperty(parentClass, currentNode.LiteralName(), currentNode.LiteralValue(), GetTypeOfProperty(currentNode.LiteralValue()), _TITLE_VALUE_SEPARATOR);
                 Pila.Peek().Value.Properties.Add(newProp);
             }
 
-            if ((currentNode.NodeType == JSonNode.eNodeType.EndOfArray && Pila.Peek().Key =="[") ||                     
+            if ((currentNode.NodeType == JSonNode.eNodeType.EndOfArray && Pila.Peek().Key == "[") ||
                 (currentNode.NodeType == JSonNode.eNodeType.EndOfObject && Pila.Peek().Key == "{"))
             {
                 Pila.Pop();
@@ -182,6 +183,33 @@ namespace JSonManager
             return Lista;
         }
 
+
+        private static Type GetTypeOfProperty(string literalValueOfNode)
+        {
+            DateTime fechaOut;
+            int intOut;
+            float floatOut;
+            bool boolOut;
+
+            if (literalValueOfNode.StartsWith("\""))
+            {
+                if (DateTime.TryParse(literalValueOfNode.Replace('\"', '\0'), out fechaOut)) return typeof(DateTime);
+
+                return typeof(string);
+            }
+
+            string cleanedLiteralValue = literalValueOfNode.Replace(',', '\0');
+
+            if (int.TryParse(cleanedLiteralValue, out intOut)) return typeof(int);
+
+            if (float.TryParse(cleanedLiteralValue, out floatOut)) return typeof(float);
+
+            if (bool.TryParse(cleanedLiteralValue, out boolOut)) return typeof(bool);
+
+            return typeof(object);
+
+        }
+    
 
         /// <summary>
         /// Añade un elemento a <paramref name="Lista"/> si <paramref name="currentNode"/>
