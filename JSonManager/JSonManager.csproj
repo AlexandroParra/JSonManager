@@ -48,6 +48,16 @@
   <ItemGroup>
     <Compile Include="ApiConnector.cs" />
     <Compile Include="PropertiesFormControls.cs" />
+    <Compile Include="SavedHttpRequests\frmSavedHttpRequests.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SavedHttpRequests\frmSavedHttpRequests.Designer.cs">
+      <DependentUpon>frmSavedHttpRequests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SavedHttpRequests\HRCollection.cs" />
+    <Compile Include="SavedHttpRequests\HRProject.cs" />
+    <Compile Include="SavedHttpRequests\HRRequest.cs" />
+    <Compile Include="SavedHttpRequests\XmlManager.cs" />
     <Compile Include="SBClassFormControls.cs" />
     <Compile Include="StringBaseClass.cs" />
     <Compile Include="CatalogoExperticket.cs" />
@@ -76,6 +86,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SavedHttpRequests\frmSavedHttpRequests.resx">
+      <DependentUpon>frmSavedHttpRequests.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -119,15 +119,22 @@ namespace JSonManager
 
 
         private void btnRequest_Click(object sender, EventArgs e)
-        {            
-            if (txtUrl.Text != string.Empty)
-            {
-                RequestAPI(txtUrl.Text);
-            }
+        {
+            if (txtUrl.Text == string.Empty)
+                ManagesSavedHttpRequests();
+            else
+                ManagesHttpRequests();
+
+
+
         }
 
+        private void ManagesSavedHttpRequests()
+        {
+            throw new NotImplementedException();
+        }
 
-        private async void RequestAPI(string url)
+        private async void RequestAPI(Uri url)
         {
             string dato = await ApiConnector.Connect(url);
             jSonReader = new JSonReader(dato);
@@ -148,6 +155,17 @@ namespace JSonManager
         private void LoadTreeViewFromJSonData(JSonReader jSonReader)
         {
             JSonReader.GetJSonOperator(jSonReader).SBClassFormControls().LoadTreeView(treeView1);
+        }
+
+        private void ManagesHttpRequests()
+        {
+            Uri uriResult;
+            bool result = Uri.TryCreate(txtUrl.Text, UriKind.Absolute, out uriResult)
+                && uriResult.Scheme == Uri.UriSchemeHttp;
+            if (result)
+                RequestAPI(uriResult);
+            else
+                MessageBox.Show("No se pudo validar la Url como una petición HTTP.");
         }
     }
 }

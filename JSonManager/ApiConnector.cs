@@ -13,7 +13,7 @@ namespace JSonManager
 
         private static HttpClient _httpClient;
 
-        public static async Task<string>  Connect(string url)
+        public static async Task<string>  Connect(Uri url)
         {
             // Generamos el objeto cliente HTTP con la dirección de la API correspondiente.
             HttpClient client = API_HttpClient(url);
@@ -32,13 +32,13 @@ namespace JSonManager
         /// Crea el objeto cliente HTTP y lo configura para la llamada a la API.
         /// </summary>
         /// <returns>Devuelve un objeto cliente HTTP correctamente configurado.</returns>
-        private static HttpClient API_HttpClient(string baseUrl)
+        private static HttpClient API_HttpClient(Uri baseUrl)
         {
             //Patrón Singleton para no crear más de un cliente HTTP.
             if (_httpClient == null)
             {
                 _httpClient = new HttpClient();
-                _httpClient.BaseAddress = new Uri(baseUrl);
+                _httpClient.BaseAddress = baseUrl;
             }
 
             // Creamos la configuración mínima para la conexión.
