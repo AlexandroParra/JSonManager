@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JSonManager.SavedHttpRequests;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -131,7 +132,7 @@ namespace JSonManager
 
         private void ManagesSavedHttpRequests()
         {
-            throw new NotImplementedException();
+            var xMM = new XmlManager();
         }
 
         private async void RequestAPI(Uri url)

@@ -11,10 +11,10 @@ namespace JSonManager.SavedHttpRequests
     /// Http Requests Project
     ///     Será el contenedor principal (o más superficial de las peticiones http a gestionar.
     /// </summary>
-    internal class HRProject
+    public class HRProject
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<HRCollection> Collection { get; set; }
+        public List<HRCollection> Collections { get; set; } = new List<HRCollection>();
     }
 }

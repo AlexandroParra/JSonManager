@@ -6,6 +6,6 @@ namespace JSonManager.SavedHttpRequests
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<HRRequest> Requests { get; set; }
+        public List<HRRequest> Requests { get; set; } = new List<HRRequest>();
     }
 }

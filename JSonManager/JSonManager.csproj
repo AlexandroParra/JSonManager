@@ -57,6 +57,8 @@
     <Compile Include="SavedHttpRequests\HRCollection.cs" />
     <Compile Include="SavedHttpRequests\HRProject.cs" />
     <Compile Include="SavedHttpRequests\HRRequest.cs" />
+    <Compile Include="SavedHttpRequests\HRVariable.cs" />
+    <Compile Include="SavedHttpRequests\HRVariableValue.cs" />
     <Compile Include="SavedHttpRequests\XmlManager.cs" />
     <Compile Include="SBClassFormControls.cs" />
     <Compile Include="StringBaseClass.cs" />
