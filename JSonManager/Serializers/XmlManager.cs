@@ -10,20 +10,16 @@ namespace JSonManager.SavedHttpRequests
 
         public XmlManager()
         {
-            SerializeHttpRequest(CreateTestProject());
+            //SerializeHttpRequest(CreateTestProject());
 
-            var obj = DeserializeHttpRequest();
         }
 
-        private void SerializeHttpRequest(HRProject hrProject)
+        private void SerializeHttpRequest(List<HRProject> hrProjects)
         {
-            Serialize<HRProject>(hrProject, _file);
+            Serialize<List<HRProject>>(hrProjects, _file);
         }
 
-        private HRProject DeserializeHttpRequest()
-        {
-            return Deserialize<HRProject>(_file);
-        }
+
 
         private void Serialize<T>(T ob, string filePath)
         {
@@ -37,7 +33,7 @@ namespace JSonManager.SavedHttpRequests
             file.Close();
         }
 
-        private T Deserialize<T>(string filePath)
+        public T Deserialize<T>(string filePath)
         {
             System.Xml.Serialization.XmlSerializer reader =
                 new System.Xml.Serialization.XmlSerializer(typeof(T));
@@ -51,8 +47,12 @@ namespace JSonManager.SavedHttpRequests
             return obj;
         }
 
-        private HRProject CreateTestProject()
+        private List<HRProject> CreateTestProject()
         {
+            List<HRProject> hrProjects = new List<HRProject>();
+
+            /**************************************************************************************/
+
             HRProject hrProject = new HRProject();
 
             hrProject.Name = "Experticket";
@@ -79,7 +79,21 @@ namespace JSonManager.SavedHttpRequests
 
             hrProject.Collections.Add(hRCollection);
 
-            return hrProject;
+            hrProjects.Add(hrProject);
+
+
+            /**************************************************************************************/
+
+            HRProject hrProject1 = new HRProject();
+
+            hrProject1.Name = "Proyecto de Pruebas";
+            hrProject1.Description = "Para diferenciarlo de el de Experticket";
+
+            hrProject1.Collections.Add(hRCollection);
+
+            hrProjects.Add(hrProject1);
+
+            return hrProjects;
         }
 
     }

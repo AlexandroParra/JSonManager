@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
+using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TreeView = System.Windows.Forms.TreeView;
 
@@ -53,7 +55,6 @@ namespace JSonManager
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
 
         }
 
@@ -132,7 +133,12 @@ namespace JSonManager
 
         private void ManagesSavedHttpRequests()
         {
-            var xMM = new XmlManager();
+            using (var frm = new frmSavedHttpRequests())
+            {
+                var result = frm.ShowDialog();
+                if (result == DialogResult.OK)
+                    txtUrl.Text = frm._httpRequestSelected;
+            }
         }
 
         private async void RequestAPI(Uri url)
@@ -162,7 +168,8 @@ namespace JSonManager
         {
             Uri uriResult;
             bool result = Uri.TryCreate(txtUrl.Text, UriKind.Absolute, out uriResult)
-                && uriResult.Scheme == Uri.UriSchemeHttp;
+                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
             if (result)
                 RequestAPI(uriResult);
             else

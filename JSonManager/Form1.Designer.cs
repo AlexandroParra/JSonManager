@@ -41,19 +41,19 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.txtRequestBody = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnCopy = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblSeparator = new System.Windows.Forms.Label();
+            this.txtSeparator = new System.Windows.Forms.TextBox();
             this.txtEnclosuredProperties = new System.Windows.Forms.TextBox();
             this.lblSufix = new System.Windows.Forms.Label();
-            this.txtSufix = new System.Windows.Forms.TextBox();
             this.lblPrefix = new System.Windows.Forms.Label();
+            this.btnCopy = new System.Windows.Forms.Button();
             this.txtPrefix = new System.Windows.Forms.TextBox();
-            this.txtProperties = new System.Windows.Forms.TextBox();
-            this.lstProperties = new System.Windows.Forms.ListBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.txtSufix = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.txtSeparator = new System.Windows.Forms.TextBox();
-            this.lblSeparator = new System.Windows.Forms.Label();
+            this.lstProperties = new System.Windows.Forms.ListBox();
+            this.txtProperties = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabTreeView.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -61,8 +61,8 @@
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -164,7 +164,7 @@
             // treeView1
             // 
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeView1.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(1045, 746);
@@ -202,16 +202,39 @@
             this.tabPage2.Text = "Properties";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // btnCopy
+            // panel3
             // 
-            this.btnCopy.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCopy.Location = new System.Drawing.Point(17, 402);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(82, 34);
-            this.btnCopy.TabIndex = 7;
-            this.btnCopy.Text = "Copy";
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            this.panel3.Controls.Add(this.lblSeparator);
+            this.panel3.Controls.Add(this.txtSeparator);
+            this.panel3.Controls.Add(this.txtEnclosuredProperties);
+            this.panel3.Controls.Add(this.lblSufix);
+            this.panel3.Controls.Add(this.lblPrefix);
+            this.panel3.Controls.Add(this.btnCopy);
+            this.panel3.Controls.Add(this.txtPrefix);
+            this.panel3.Controls.Add(this.txtSufix);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel3.Location = new System.Drawing.Point(537, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(520, 906);
+            this.panel3.TabIndex = 9;
+            // 
+            // lblSeparator
+            // 
+            this.lblSeparator.AutoSize = true;
+            this.lblSeparator.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeparator.Location = new System.Drawing.Point(14, 237);
+            this.lblSeparator.Name = "lblSeparator";
+            this.lblSeparator.Size = new System.Drawing.Size(89, 17);
+            this.lblSeparator.TabIndex = 9;
+            this.lblSeparator.Text = "Separator";
+            // 
+            // txtSeparator
+            // 
+            this.txtSeparator.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSeparator.Location = new System.Drawing.Point(3, 269);
+            this.txtSeparator.Name = "txtSeparator";
+            this.txtSeparator.Size = new System.Drawing.Size(492, 24);
+            this.txtSeparator.TabIndex = 8;
             // 
             // txtEnclosuredProperties
             // 
@@ -233,15 +256,6 @@
             this.lblSufix.TabIndex = 5;
             this.lblSufix.Text = "Sufix";
             // 
-            // txtSufix
-            // 
-            this.txtSufix.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSufix.Location = new System.Drawing.Point(3, 342);
-            this.txtSufix.Name = "txtSufix";
-            this.txtSufix.Size = new System.Drawing.Size(492, 26);
-            this.txtSufix.TabIndex = 4;
-            this.txtSufix.Text = "];";
-            // 
             // lblPrefix
             // 
             this.lblPrefix.AutoSize = true;
@@ -252,6 +266,17 @@
             this.lblPrefix.TabIndex = 3;
             this.lblPrefix.Text = "Prefix";
             // 
+            // btnCopy
+            // 
+            this.btnCopy.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCopy.Location = new System.Drawing.Point(17, 402);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(82, 34);
+            this.btnCopy.TabIndex = 7;
+            this.btnCopy.Text = "Copy";
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            // 
             // txtPrefix
             // 
             this.txtPrefix.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -261,15 +286,24 @@
             this.txtPrefix.TabIndex = 2;
             this.txtPrefix.Text = "const properties = [";
             // 
-            // txtProperties
+            // txtSufix
             // 
-            this.txtProperties.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txtProperties.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProperties.Location = new System.Drawing.Point(0, 461);
-            this.txtProperties.Multiline = true;
-            this.txtProperties.Name = "txtProperties";
-            this.txtProperties.Size = new System.Drawing.Size(523, 445);
-            this.txtProperties.TabIndex = 1;
+            this.txtSufix.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSufix.Location = new System.Drawing.Point(3, 342);
+            this.txtSufix.Name = "txtSufix";
+            this.txtSufix.Size = new System.Drawing.Size(492, 26);
+            this.txtSufix.TabIndex = 4;
+            this.txtSufix.Text = "];";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lstProperties);
+            this.panel2.Controls.Add(this.txtProperties);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(523, 906);
+            this.panel2.TabIndex = 8;
             // 
             // lstProperties
             // 
@@ -282,6 +316,16 @@
             this.lstProperties.Size = new System.Drawing.Size(523, 436);
             this.lstProperties.TabIndex = 0;
             // 
+            // txtProperties
+            // 
+            this.txtProperties.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtProperties.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtProperties.Location = new System.Drawing.Point(0, 461);
+            this.txtProperties.Multiline = true;
+            this.txtProperties.Name = "txtProperties";
+            this.txtProperties.Size = new System.Drawing.Size(523, 445);
+            this.txtProperties.TabIndex = 1;
+            // 
             // tabPage4
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 27);
@@ -291,50 +335,6 @@
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "Structure";
             this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.lstProperties);
-            this.panel2.Controls.Add(this.txtProperties);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(523, 906);
-            this.panel2.TabIndex = 8;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.lblSeparator);
-            this.panel3.Controls.Add(this.txtSeparator);
-            this.panel3.Controls.Add(this.txtEnclosuredProperties);
-            this.panel3.Controls.Add(this.lblSufix);
-            this.panel3.Controls.Add(this.lblPrefix);
-            this.panel3.Controls.Add(this.btnCopy);
-            this.panel3.Controls.Add(this.txtPrefix);
-            this.panel3.Controls.Add(this.txtSufix);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(537, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(520, 906);
-            this.panel3.TabIndex = 9;
-            // 
-            // txtSeparator
-            // 
-            this.txtSeparator.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSeparator.Location = new System.Drawing.Point(3, 269);
-            this.txtSeparator.Name = "txtSeparator";
-            this.txtSeparator.Size = new System.Drawing.Size(492, 24);
-            this.txtSeparator.TabIndex = 8;
-            // 
-            // lblSeparator
-            // 
-            this.lblSeparator.AutoSize = true;
-            this.lblSeparator.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeparator.Location = new System.Drawing.Point(14, 237);
-            this.lblSeparator.Name = "lblSeparator";
-            this.lblSeparator.Size = new System.Drawing.Size(89, 17);
-            this.lblSeparator.TabIndex = 9;
-            this.lblSeparator.Text = "Separator";
             // 
             // Form1
             // 
@@ -354,10 +354,10 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
