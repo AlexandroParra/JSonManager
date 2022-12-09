@@ -19,14 +19,14 @@ using TreeView = System.Windows.Forms.TreeView;
 
 namespace JSonManager
 {
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
 
         private OpenFileDialog openFileDialog1;
 
         private JSonReader jSonReader;
 
-        public Form1()
+        public frmMain()
         {
             InitializeComponent();
 
@@ -137,7 +137,7 @@ namespace JSonManager
             {
                 var result = frm.ShowDialog();
                 if (result == DialogResult.OK)
-                    txtUrl.Text = frm._httpRequestSelected;
+                    txtUrl.Text = frm.HttpRequestSelected;
             }
         }
 

@@ -16,7 +16,7 @@ namespace JSonManager.SavedHttpRequests
     public partial class frmSavedHttpRequests : Form
     {
 
-        public string _httpRequestSelected;
+        public string HttpRequestSelected;
 
         private List<HRProject> _projects;
 
@@ -52,9 +52,7 @@ namespace JSonManager.SavedHttpRequests
 
         private void ApplyHRProjectsListFilter(string conditions)
         {
-            lstHRProjects.Items.Clear();
-            lstHRProjects.Items.Add("Carga este Listbox, por amor de Deu.");
-            // Hay que cargar el 
+         
         }
 
         private void LoadConfiguration()
@@ -138,9 +136,39 @@ namespace JSonManager.SavedHttpRequests
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            _httpRequestSelected = txtDecodedRequest.Text;
+            HttpRequestSelected = txtDecodedRequest.Text;
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void btnNewProject_Click(object sender, EventArgs e)
+        {
+            string name = txtProjectFinder.Text;
+
+            var projectNames = _projects.Select(x => x.Name).ToList();
+
+            if (name != String.Empty && !projectNames.Contains(name))
+                _projects.Add(CreateNewProject(name));
+        }
+
+        public HRProject CreateNewProject(string Name)
+        {
+            HRProject hrProject = new HRProject();
+            hrProject.Name = Name;
+
+            frmHREntitiesEdition frmHREE = new frmHREntitiesEdition();
+            frmHREE.Text = Name;
+            
+            var result = frmHREE.ShowDialog();
+            if (result == DialogResult.OK)
+                hrProject.Description = frmHREE.Description;
+
+            return hrProject;
+        }
+
+        private void frmSavedHttpRequests_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _xmlManager.Serialize<List<HRProject>>(_projects,_locationProjectsFile);
         }
     }
 }

@@ -39,6 +39,7 @@
             this.lstHRVariables = new System.Windows.Forms.ListBox();
             this.txtDecodedRequest = new System.Windows.Forms.TextBox();
             this.btnSelect = new System.Windows.Forms.Button();
+            this.btnNewProject = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVariables)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,10 +56,10 @@
             // 
             // txtProjectFinder
             // 
-            this.txtProjectFinder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtProjectFinder.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtProjectFinder.Location = new System.Drawing.Point(12, 11);
             this.txtProjectFinder.Name = "txtProjectFinder";
-            this.txtProjectFinder.Size = new System.Drawing.Size(313, 24);
+            this.txtProjectFinder.Size = new System.Drawing.Size(270, 25);
             this.txtProjectFinder.TabIndex = 1;
             this.txtProjectFinder.TextChanged += new System.EventHandler(this.txtProjectFinder_TextChanged);
             // 
@@ -141,11 +142,23 @@
             this.btnSelect.UseVisualStyleBackColor = true;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
+            // btnNewProject
+            // 
+            this.btnNewProject.Font = new System.Drawing.Font("Cooper Black", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewProject.Location = new System.Drawing.Point(288, 9);
+            this.btnNewProject.Name = "btnNewProject";
+            this.btnNewProject.Size = new System.Drawing.Size(37, 26);
+            this.btnNewProject.TabIndex = 8;
+            this.btnNewProject.Text = "+";
+            this.btnNewProject.UseVisualStyleBackColor = true;
+            this.btnNewProject.Click += new System.EventHandler(this.btnNewProject_Click);
+            // 
             // frmSavedHttpRequests
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1461, 661);
+            this.Controls.Add(this.btnNewProject);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.txtDecodedRequest);
             this.Controls.Add(this.lstHRVariables);
@@ -156,6 +169,7 @@
             this.Controls.Add(this.lstHRProjects);
             this.Name = "frmSavedHttpRequests";
             this.Text = "HTTP Requests manager";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSavedHttpRequests_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVariables)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -175,5 +189,6 @@
         private System.Windows.Forms.ListBox lstHRVariables;
         private System.Windows.Forms.TextBox txtDecodedRequest;
         private System.Windows.Forms.Button btnSelect;
+        private System.Windows.Forms.Button btnNewProject;
     }
 }

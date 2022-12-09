@@ -1,6 +1,6 @@
 ﻿namespace JSonManager
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -75,7 +75,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1068, 943);
+            this.tabControl1.Size = new System.Drawing.Size(1085, 943);
             this.tabControl1.TabIndex = 1;
             // 
             // tabTreeView
@@ -85,7 +85,7 @@
             this.tabTreeView.Location = new System.Drawing.Point(4, 27);
             this.tabTreeView.Name = "tabTreeView";
             this.tabTreeView.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTreeView.Size = new System.Drawing.Size(1060, 912);
+            this.tabTreeView.Size = new System.Drawing.Size(1077, 912);
             this.tabTreeView.TabIndex = 0;
             this.tabTreeView.Text = "Data Load";
             this.tabTreeView.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1054, 106);
+            this.panel1.Size = new System.Drawing.Size(1071, 106);
             this.panel1.TabIndex = 7;
             // 
             // txtUrl
@@ -144,10 +144,11 @@
             // 
             this.tabControl2.Controls.Add(this.tabPage1);
             this.tabControl2.Controls.Add(this.tabPage3);
-            this.tabControl2.Location = new System.Drawing.Point(3, 115);
+            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tabControl2.Location = new System.Drawing.Point(3, 126);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1059, 783);
+            this.tabControl2.Size = new System.Drawing.Size(1071, 783);
             this.tabControl2.TabIndex = 6;
             // 
             // tabPage1
@@ -156,7 +157,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1051, 752);
+            this.tabPage1.Size = new System.Drawing.Size(1063, 752);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Content Tree";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -167,7 +168,7 @@
             this.treeView1.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(1045, 746);
+            this.treeView1.Size = new System.Drawing.Size(1057, 746);
             this.treeView1.TabIndex = 0;
             // 
             // tabPage3
@@ -340,7 +341,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1068, 943);
+            this.ClientSize = new System.Drawing.Size(1085, 943);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";

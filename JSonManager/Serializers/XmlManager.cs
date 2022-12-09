@@ -8,20 +8,8 @@ namespace JSonManager.SavedHttpRequests
     {
         private string _file = Environment.CurrentDirectory + "//SavedHttpRequest.xml";
 
-        public XmlManager()
-        {
-            //SerializeHttpRequest(CreateTestProject());
 
-        }
-
-        private void SerializeHttpRequest(List<HRProject> hrProjects)
-        {
-            Serialize<List<HRProject>>(hrProjects, _file);
-        }
-
-
-
-        private void Serialize<T>(T ob, string filePath)
+        public void Serialize<T>(T ob, string filePath)
         {
             System.Xml.Serialization.XmlSerializer writer =
                 new System.Xml.Serialization.XmlSerializer(typeof(T));
