@@ -78,11 +78,11 @@
   <ItemGroup>
     <Compile Include="ApiConnector.cs" />
     <Compile Include="PropertiesFormControls.cs" />
-    <Compile Include="SavedHttpRequests\frmHREntitiesEdition.cs">
+    <Compile Include="SavedHttpRequests\frmHREntityEdition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SavedHttpRequests\frmHREntitiesEdition.Designer.cs">
-      <DependentUpon>frmHREntitiesEdition.cs</DependentUpon>
+    <Compile Include="SavedHttpRequests\frmHREntityEdition.Designer.cs">
+      <DependentUpon>frmHREntityEdition.cs</DependentUpon>
     </Compile>
     <Compile Include="SavedHttpRequests\frmSavedHttpRequests.cs">
       <SubType>Form</SubType>
@@ -95,6 +95,7 @@
     <Compile Include="SavedHttpRequests\HRRequest.cs" />
     <Compile Include="SavedHttpRequests\HRVariable.cs" />
     <Compile Include="SavedHttpRequests\HRVariableValue.cs" />
+    <Compile Include="SavedHttpRequests\IEditableEntity.cs" />
     <Compile Include="Serializers\XmlManager.cs" />
     <Compile Include="SBClassFormControls.cs" />
     <Compile Include="StringBaseClass.cs" />
@@ -124,8 +125,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="SavedHttpRequests\frmHREntitiesEdition.resx">
-      <DependentUpon>frmHREntitiesEdition.cs</DependentUpon>
+    <EmbeddedResource Include="SavedHttpRequests\frmHREntityEdition.resx">
+      <DependentUpon>frmHREntityEdition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SavedHttpRequests\frmSavedHttpRequests.resx">
       <DependentUpon>frmSavedHttpRequests.cs</DependentUpon>

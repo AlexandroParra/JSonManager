@@ -40,6 +40,12 @@
             this.txtDecodedRequest = new System.Windows.Forms.TextBox();
             this.btnSelect = new System.Windows.Forms.Button();
             this.btnNewProject = new System.Windows.Forms.Button();
+            this.txtCollectionFinder = new System.Windows.Forms.TextBox();
+            this.btnNewCollection = new System.Windows.Forms.Button();
+            this.btnNewVariable = new System.Windows.Forms.Button();
+            this.txtVariableFinder = new System.Windows.Forms.TextBox();
+            this.btnNewHRequest = new System.Windows.Forms.Button();
+            this.txtRequestFinder = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVariables)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,9 +85,9 @@
             this.lstHRRequests.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstHRRequests.FormattingEnabled = true;
             this.lstHRRequests.ItemHeight = 18;
-            this.lstHRRequests.Location = new System.Drawing.Point(12, 411);
+            this.lstHRRequests.Location = new System.Drawing.Point(12, 444);
             this.lstHRRequests.Name = "lstHRRequests";
-            this.lstHRRequests.Size = new System.Drawing.Size(1437, 238);
+            this.lstHRRequests.Size = new System.Drawing.Size(1343, 238);
             this.lstHRRequests.TabIndex = 3;
             this.lstHRRequests.SelectedIndexChanged += new System.EventHandler(this.lstHRRequests_SelectedIndexChanged);
             // 
@@ -92,9 +98,9 @@
             this.Column1,
             this.Column2,
             this.Column3});
-            this.dataGridVariables.Location = new System.Drawing.Point(1043, 41);
+            this.dataGridVariables.Location = new System.Drawing.Point(1006, 12);
             this.dataGridVariables.Name = "dataGridVariables";
-            this.dataGridVariables.Size = new System.Drawing.Size(406, 292);
+            this.dataGridVariables.Size = new System.Drawing.Size(349, 321);
             this.dataGridVariables.TabIndex = 4;
             // 
             // Column1
@@ -125,16 +131,18 @@
             // 
             // txtDecodedRequest
             // 
+            this.txtDecodedRequest.BackColor = System.Drawing.SystemColors.Info;
+            this.txtDecodedRequest.Enabled = false;
             this.txtDecodedRequest.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDecodedRequest.Location = new System.Drawing.Point(12, 360);
             this.txtDecodedRequest.Name = "txtDecodedRequest";
-            this.txtDecodedRequest.Size = new System.Drawing.Size(1347, 25);
+            this.txtDecodedRequest.Size = new System.Drawing.Size(1253, 25);
             this.txtDecodedRequest.TabIndex = 6;
             // 
             // btnSelect
             // 
             this.btnSelect.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelect.Location = new System.Drawing.Point(1373, 360);
+            this.btnSelect.Location = new System.Drawing.Point(1280, 359);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(75, 26);
             this.btnSelect.TabIndex = 7;
@@ -145,7 +153,7 @@
             // btnNewProject
             // 
             this.btnNewProject.Font = new System.Drawing.Font("Cooper Black", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNewProject.Location = new System.Drawing.Point(288, 9);
+            this.btnNewProject.Location = new System.Drawing.Point(288, 10);
             this.btnNewProject.Name = "btnNewProject";
             this.btnNewProject.Size = new System.Drawing.Size(37, 26);
             this.btnNewProject.TabIndex = 8;
@@ -153,11 +161,73 @@
             this.btnNewProject.UseVisualStyleBackColor = true;
             this.btnNewProject.Click += new System.EventHandler(this.btnNewProject_Click);
             // 
+            // txtCollectionFinder
+            // 
+            this.txtCollectionFinder.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCollectionFinder.Location = new System.Drawing.Point(342, 11);
+            this.txtCollectionFinder.Name = "txtCollectionFinder";
+            this.txtCollectionFinder.Size = new System.Drawing.Size(270, 25);
+            this.txtCollectionFinder.TabIndex = 9;
+            // 
+            // btnNewCollection
+            // 
+            this.btnNewCollection.Font = new System.Drawing.Font("Cooper Black", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewCollection.Location = new System.Drawing.Point(618, 10);
+            this.btnNewCollection.Name = "btnNewCollection";
+            this.btnNewCollection.Size = new System.Drawing.Size(37, 26);
+            this.btnNewCollection.TabIndex = 10;
+            this.btnNewCollection.Text = "+";
+            this.btnNewCollection.UseVisualStyleBackColor = true;
+            this.btnNewCollection.Click += new System.EventHandler(this.btnNewCollection_Click);
+            // 
+            // btnNewVariable
+            // 
+            this.btnNewVariable.Font = new System.Drawing.Font("Cooper Black", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewVariable.Location = new System.Drawing.Point(949, 10);
+            this.btnNewVariable.Name = "btnNewVariable";
+            this.btnNewVariable.Size = new System.Drawing.Size(37, 26);
+            this.btnNewVariable.TabIndex = 11;
+            this.btnNewVariable.Text = "+";
+            this.btnNewVariable.UseVisualStyleBackColor = true;
+            // 
+            // txtVariableFinder
+            // 
+            this.txtVariableFinder.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVariableFinder.Location = new System.Drawing.Point(673, 11);
+            this.txtVariableFinder.Name = "txtVariableFinder";
+            this.txtVariableFinder.Size = new System.Drawing.Size(270, 25);
+            this.txtVariableFinder.TabIndex = 12;
+            // 
+            // btnNewHRequest
+            // 
+            this.btnNewHRequest.Font = new System.Drawing.Font("Cooper Black", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewHRequest.Location = new System.Drawing.Point(1280, 410);
+            this.btnNewHRequest.Name = "btnNewHRequest";
+            this.btnNewHRequest.Size = new System.Drawing.Size(37, 26);
+            this.btnNewHRequest.TabIndex = 13;
+            this.btnNewHRequest.Text = "+";
+            this.btnNewHRequest.UseVisualStyleBackColor = true;
+            this.btnNewHRequest.Click += new System.EventHandler(this.btnNewHRequest_Click);
+            // 
+            // txtRequestFinder
+            // 
+            this.txtRequestFinder.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRequestFinder.Location = new System.Drawing.Point(12, 412);
+            this.txtRequestFinder.Name = "txtRequestFinder";
+            this.txtRequestFinder.Size = new System.Drawing.Size(1253, 25);
+            this.txtRequestFinder.TabIndex = 14;
+            // 
             // frmSavedHttpRequests
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1461, 661);
+            this.ClientSize = new System.Drawing.Size(1372, 692);
+            this.Controls.Add(this.txtRequestFinder);
+            this.Controls.Add(this.btnNewHRequest);
+            this.Controls.Add(this.txtVariableFinder);
+            this.Controls.Add(this.btnNewVariable);
+            this.Controls.Add(this.btnNewCollection);
+            this.Controls.Add(this.txtCollectionFinder);
             this.Controls.Add(this.btnNewProject);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.txtDecodedRequest);
@@ -190,5 +260,11 @@
         private System.Windows.Forms.TextBox txtDecodedRequest;
         private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.Button btnNewProject;
+        private System.Windows.Forms.TextBox txtCollectionFinder;
+        private System.Windows.Forms.Button btnNewCollection;
+        private System.Windows.Forms.Button btnNewVariable;
+        private System.Windows.Forms.TextBox txtVariableFinder;
+        private System.Windows.Forms.Button btnNewHRequest;
+        private System.Windows.Forms.TextBox txtRequestFinder;
     }
 }

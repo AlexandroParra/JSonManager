@@ -67,6 +67,9 @@ namespace JSonManager.SavedHttpRequests
 
             lstHRRequests.ValueMember = "Url";
             lstHRRequests.DisplayMember = "Url";
+
+            lstHRVariables.ValueMember = "Name";
+            lstHRVariables.DisplayMember = "Name";
         }
 
         private void LoadHRProjects()
@@ -106,6 +109,11 @@ namespace JSonManager.SavedHttpRequests
             lstHRRequests.DataSource = _currentCollection.Requests;
         }
 
+        private void LoadHRVariables()
+        {
+            lstHRVariables.DataSource = _currentRequest.Variables;
+        }
+
         private void LoadHRVariableValue()
         {
             //foreach (DataRow row in table.Rows)
@@ -120,6 +128,7 @@ namespace JSonManager.SavedHttpRequests
             if (lstHRRequests.SelectedItems.Count > 0)
             {
                 _currentRequest = lstHRRequests.SelectedItem as HRRequest;
+                LoadHRVariables();
                 DecodeRequest();
             }
         }
@@ -141,6 +150,16 @@ namespace JSonManager.SavedHttpRequests
             this.Close();
         }
 
+
+
+
+        private void frmSavedHttpRequests_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _xmlManager.Serialize<List<HRProject>>(_projects,_locationProjectsFile);
+        }
+
+
+
         private void btnNewProject_Click(object sender, EventArgs e)
         {
             string name = txtProjectFinder.Text;
@@ -148,27 +167,102 @@ namespace JSonManager.SavedHttpRequests
             var projectNames = _projects.Select(x => x.Name).ToList();
 
             if (name != String.Empty && !projectNames.Contains(name))
-                _projects.Add(CreateNewProject(name));
+            {
+                var newProject = CreateNewProject(name);
+
+                if (newProject != null)
+                    _projects.Add(newProject);
+            }
+                
         }
 
-        public HRProject CreateNewProject(string Name)
-        {
-            HRProject hrProject = new HRProject();
-            hrProject.Name = Name;
 
-            frmHREntitiesEdition frmHREE = new frmHREntitiesEdition();
-            frmHREE.Text = Name;
-            
+        private void btnNewCollection_Click(object sender, EventArgs e)
+        {
+            string name = txtCollectionFinder.Text;
+
+            var collectionNames = _currentProject.Collections.Select(x => x.Name).ToList();
+
+            if (name != String.Empty && !collectionNames.Contains(name))
+            {
+                var newCollection = CreateNewCollection(name);
+
+                if (newCollection != null)
+                    _currentProject.Collections.Add(newCollection);
+            }
+        }
+
+
+        private void btnNewHRequest_Click(object sender, EventArgs e)
+        {
+            string name = txtRequestFinder.Text;
+
+            var requestNames = _currentCollection.Requests.Select(x => x.Name).ToList();
+
+            if (name != String.Empty && !requestNames.Contains(name))
+            {
+                var newRequest = CreateNewRequest(name);
+
+                if (newRequest != null)
+                    _currentCollection.Requests.Add(newRequest);
+            }
+        }
+
+        private HRRequest CreateNewRequest(string name)
+        {
+            HRRequest hrRequest = new HRRequest();
+            hrRequest.Name = name;
+
+            frmHREntityEdition frmHREE = new frmHREntityEdition(EntityType.Request);
+            frmHREE.Text = name;
+
             var result = frmHREE.ShowDialog();
             if (result == DialogResult.OK)
-                hrProject.Description = frmHREE.Description;
+            {
+                hrRequest.Description = frmHREE.Entity.Description;
+                hrRequest.Method = frmHREE.Entity.Method;
+                hrRequest.Url = frmHREE.Entity.Url;
+                return hrRequest;
+            }
 
-            return hrProject;
+            return null;
+
         }
 
-        private void frmSavedHttpRequests_FormClosing(object sender, FormClosingEventArgs e)
+        private HRProject CreateNewProject(string name)
         {
-            _xmlManager.Serialize<List<HRProject>>(_projects,_locationProjectsFile);
+            HRProject hrProject = new HRProject();
+            hrProject.Name = name;
+
+            frmHREntityEdition frmHREE = new frmHREntityEdition(EntityType.Project);
+            frmHREE.Text = name;
+
+            var result = frmHREE.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                hrProject.Description = frmHREE.Entity.Description;
+                return hrProject;
+            }
+
+            return null;
+        }
+
+        private HRCollection CreateNewCollection(string name)
+        {
+            HRCollection hrCollection = new HRCollection();
+            hrCollection.Name = name;
+
+            frmHREntityEdition frmHREE = new frmHREntityEdition(EntityType.Collection);
+            frmHREE.Text = name;
+
+            var result = frmHREE.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                hrCollection.Description = frmHREE.Entity.Description;
+                return hrCollection;
+            }
+
+            return null;
         }
     }
 }
