@@ -26,14 +26,15 @@ namespace JSonManager.SavedHttpRequests
 
         private HRRequest _currentRequest;
 
-        private XmlManager _xmlManager = new XmlManager(); 
+        private XmlManager _xmlManager = new XmlManager();
 
-        private string _locationProjectsFile = Environment.CurrentDirectory;
+        private string _locationProjectsFile; 
 
         public frmSavedHttpRequests()
         {
             InitializeComponent();
             LoadConfiguration();
+            //SaveProjects(XmlManager.CreateTestProject(), _locationProjectsFile);
             LoadDataForm();
         }
 
@@ -57,7 +58,10 @@ namespace JSonManager.SavedHttpRequests
 
         private void LoadConfiguration()
         {
-            _locationProjectsFile += ConfigurationManager.AppSettings.Get("LocationProjectsFile");
+            var nombreFichero = ConfigurationManager.AppSettings.Get("LocationProjectsFile");
+            _locationProjectsFile = Environment.CurrentDirectory;
+
+            _locationProjectsFile += nombreFichero;
 
             lstHRProjects.ValueMember = "Name";
             lstHRProjects.DisplayMember = "Name";
@@ -116,11 +120,7 @@ namespace JSonManager.SavedHttpRequests
 
         private void LoadHRVariableValue()
         {
-            //foreach (DataRow row in table.Rows)
-            //{
-            //    var data = new Modelo { nombre = row["Nombre"].ToString(), apellido = row["Apellidos"].ToString(), sexo = row["Sexo"].ToString(), edad = row["Edad"].ToString() };
-            //    dataGridVariables.Items.Add(data);
-            //}
+            dataGridVariables.DataSource = _currentRequest.Variables;
         }
 
         private void lstHRRequests_SelectedIndexChanged(object sender, EventArgs e)
@@ -155,7 +155,7 @@ namespace JSonManager.SavedHttpRequests
 
         private void frmSavedHttpRequests_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _xmlManager.Serialize<List<HRProject>>(_projects,_locationProjectsFile);
+            SaveProjects(_projects,_locationProjectsFile);
         }
 
 
@@ -176,6 +176,10 @@ namespace JSonManager.SavedHttpRequests
                 
         }
 
+        private void SaveProjects(List<HRProject> projects, string file)
+        {
+            _xmlManager.Serialize<List<HRProject>>(_projects, file);
+        }
 
         private void btnNewCollection_Click(object sender, EventArgs e)
         {

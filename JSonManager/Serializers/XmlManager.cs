@@ -6,8 +6,6 @@ namespace JSonManager.SavedHttpRequests
 {
     internal class XmlManager
     {
-        private string _file = Environment.CurrentDirectory + "//SavedHttpRequest.xml";
-
 
         public void Serialize<T>(T ob, string filePath)
         {
@@ -35,7 +33,7 @@ namespace JSonManager.SavedHttpRequests
             return obj;
         }
 
-        private List<HRProject> CreateTestProject()
+        public static List<HRProject> CreateTestProject()
         {
             List<HRProject> hrProjects = new List<HRProject>();
 
