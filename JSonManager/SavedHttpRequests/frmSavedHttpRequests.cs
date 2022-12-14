@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -30,8 +31,39 @@ namespace JSonManager.SavedHttpRequests
         {
             InitializeComponent();
             LoadConfiguration();
-            //SaveProjects(XmlManager.CreateTestProject(), _locationProjectsFile);
-            LoadDataForm();
+
+            if (IsConfigurationOK())
+                //SaveProjects(XmlManager.CreateTestProject(), _locationProjectsFile);
+                LoadDataForm();
+            else
+            {
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+            }
+        }
+
+
+        private bool IsConfigurationOK()
+        {
+            var AllConfigurationElementsOk = true;
+
+            AllConfigurationElementsOk &= IsProjectListOK();
+
+            return AllConfigurationElementsOk;
+        }
+
+        private bool IsProjectListOK()
+        {
+            _projects = null;
+
+            if (!File.Exists(_locationProjectsFile))
+            {
+                var resp = 
+                    MessageBox.Show("The configuration file {0} has not been founded. Do you want continue creating a new one?",
+                                    "Error Accessing Configuration File", MessageBoxButtons.YesNo);
+                if (resp == DialogResult.Yes) { _projects = new List<HRProject>(); }
+            }
+            return _projects != null;
         }
 
         private void LoadDataForm()
@@ -54,10 +86,10 @@ namespace JSonManager.SavedHttpRequests
 
         private void LoadConfiguration()
         {
-            var nombreFichero = ConfigurationManager.AppSettings.Get("LocationProjectsFile");
+            var nombreFichero = ConfigurationManager.AppSettings.Get("SavedProjectsFileName");
             _locationProjectsFile = Environment.CurrentDirectory;
 
-            _locationProjectsFile += nombreFichero;
+            _locationProjectsFile += "\\" + nombreFichero;
 
             lstHRProjects.ValueMember = "Name";
             lstHRProjects.DisplayMember = "Name";
@@ -75,11 +107,10 @@ namespace JSonManager.SavedHttpRequests
         private void LoadHRProjectsFromFile()
         {
             _projects = _xmlManager.Deserialize<List<HRProject>>(_locationProjectsFile);
-            if (_projects != null && _projects.Count > 0)
-            {
-                LoadHRProjects();
-            }
+            if (_projects != null && _projects.Count > 0){LoadHRProjects();}
         }
+
+
 
         private void lstHRProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -160,7 +191,8 @@ namespace JSonManager.SavedHttpRequests
 
         private void frmSavedHttpRequests_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SaveProjects(_projects,_locationProjectsFile);
+            if (_projects.Count > 0)
+                SaveProjects(_projects,_locationProjectsFile);
         }
 
 

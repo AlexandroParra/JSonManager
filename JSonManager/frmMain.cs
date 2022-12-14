@@ -126,19 +126,17 @@ namespace JSonManager
                 ManagesSavedHttpRequests();
             else
                 ManagesHttpRequests();
-
-
-
         }
 
         private void ManagesSavedHttpRequests()
         {
-            using (var frm = new frmSavedHttpRequests())
-            {
+            //using (var frm = new frmSavedHttpRequests())
+            //{
+                var frm = new frmSavedHttpRequests();
                 var result = frm.ShowDialog();
                 if (result == DialogResult.OK)
                     txtUrl.Text = frm.HttpRequestSelected;
-            }
+            //}
         }
 
         private async void RequestAPI(Uri url)
