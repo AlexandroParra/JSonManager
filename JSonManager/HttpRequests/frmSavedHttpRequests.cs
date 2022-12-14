@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JSonManager.HttpRequests;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -23,52 +24,22 @@ namespace JSonManager.SavedHttpRequests
 
         private HRVariable _currentVariable;
 
-        private XmlManager _xmlManager = new XmlManager();
+        private HttpRequestsSavedProjects _savedProjects;
 
-        private string _locationProjectsFile; 
 
-        public frmSavedHttpRequests()
+        public frmSavedHttpRequests(HttpRequestsSavedProjects httpRequestsSavedProjects)
         {
             InitializeComponent();
-            LoadConfiguration();
-
-            if (IsConfigurationOK())
-                //SaveProjects(XmlManager.CreateTestProject(), _locationProjectsFile);
-                LoadDataForm();
-            else
-            {
-                this.DialogResult = DialogResult.Cancel;
-                this.Close();
-            }
+            SetControlsConfiguration();
+            //SaveProjects(XmlManager.CreateTestProject(), _locationProjectsFile);
+            LoadDataForm(httpRequestsSavedProjects);
         }
 
-
-        private bool IsConfigurationOK()
+        private void LoadDataForm(HttpRequestsSavedProjects httpRequestsSavedProjects)
         {
-            var AllConfigurationElementsOk = true;
-
-            AllConfigurationElementsOk &= IsProjectListOK();
-
-            return AllConfigurationElementsOk;
-        }
-
-        private bool IsProjectListOK()
-        {
-            _projects = null;
-
-            if (!File.Exists(_locationProjectsFile))
-            {
-                var resp = 
-                    MessageBox.Show("The configuration file {0} has not been founded. Do you want continue creating a new one?",
-                                    "Error Accessing Configuration File", MessageBoxButtons.YesNo);
-                if (resp == DialogResult.Yes) { _projects = new List<HRProject>(); }
-            }
-            return _projects != null;
-        }
-
-        private void LoadDataForm()
-        {
-            LoadHRProjectsFromFile();
+            _savedProjects = httpRequestsSavedProjects;
+            _projects = _savedProjects.HttpRequestsProjects;
+            if (_projects != null && _projects.Count > 0) { LoadHRProjects(); }
         }
 
         private void txtProjectFinder_TextChanged(object sender, EventArgs e)
@@ -84,13 +55,8 @@ namespace JSonManager.SavedHttpRequests
          
         }
 
-        private void LoadConfiguration()
+        private void SetControlsConfiguration()
         {
-            var nombreFichero = ConfigurationManager.AppSettings.Get("SavedProjectsFileName");
-            _locationProjectsFile = Environment.CurrentDirectory;
-
-            _locationProjectsFile += "\\" + nombreFichero;
-
             lstHRProjects.ValueMember = "Name";
             lstHRProjects.DisplayMember = "Name";
 
@@ -102,12 +68,6 @@ namespace JSonManager.SavedHttpRequests
 
             lstHRVariables.ValueMember = "Name";
             lstHRVariables.DisplayMember = "Name";
-        }
-
-        private void LoadHRProjectsFromFile()
-        {
-            _projects = _xmlManager.Deserialize<List<HRProject>>(_locationProjectsFile);
-            if (_projects != null && _projects.Count > 0){LoadHRProjects();}
         }
 
 
@@ -191,8 +151,7 @@ namespace JSonManager.SavedHttpRequests
 
         private void frmSavedHttpRequests_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_projects.Count > 0)
-                SaveProjects(_projects,_locationProjectsFile);
+            if (_projects.Count > 0) _savedProjects.SaveProjects();
         }
 
 
@@ -218,12 +177,6 @@ namespace JSonManager.SavedHttpRequests
             LoadHRProjects();
         }
 
-
-
-        private void SaveProjects(List<HRProject> projects, string file)
-        {
-            _xmlManager.Serialize<List<HRProject>>(_projects, file);
-        }
 
         private void btnNewCollection_Click(object sender, EventArgs e)
         {

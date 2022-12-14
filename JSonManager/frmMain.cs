@@ -1,4 +1,5 @@
-﻿using JSonManager.SavedHttpRequests;
+﻿using JSonManager.HttpRequests;
+using JSonManager.SavedHttpRequests;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,12 +16,18 @@ using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using File = System.IO.File;
 using TreeView = System.Windows.Forms.TreeView;
 
 namespace JSonManager
 {
     public partial class frmMain : Form
     {
+
+
+        private const string MSG_SAVED_HTTP_REQUESTS_FILE_NO_EXIST = "The configuration file {File} has not been founded.";
+        private const string MSG_OFFER_NEW_HTTP_REQUESTS_FILE = "Do you want continue creating a new file of Http Requests? (file {File} will be created)";
+        private const string TITLE_SAVED_HTTP_REQUESTS_FILE_NO_EXIST = "Error Accessing Configuration File";
 
         private OpenFileDialog openFileDialog1;
 
@@ -130,13 +137,55 @@ namespace JSonManager
 
         private void ManagesSavedHttpRequests()
         {
-            //using (var frm = new frmSavedHttpRequests())
-            //{
-                var frm = new frmSavedHttpRequests();
+            var hRSavedProjects = CreateHttpRequestsSavedProjects();
+
+            if (hRSavedProjects.IsEnabled)
+                OpenSavedHttpRequestsForm(hRSavedProjects);
+        }
+
+        private HttpRequestsSavedProjects CreateHttpRequestsSavedProjects()
+        {
+            var hRSavedProjects = new HttpRequestsSavedProjects(LoadLocationSavedHttpRequestsFileFromConfiguration());
+
+            if (hRSavedProjects.SavedFileExists())
+                hRSavedProjects.LoadProjects();
+            else
+            {
+                MsgSavedHttpRequestsFileNoExist(hRSavedProjects.SavedHRFilePath);
+                var resp = MsgOfferingNewHttpRequestsFile(hRSavedProjects.SavedHRFilePath);
+                if (resp == DialogResult.Yes)
+                    hRSavedProjects.InitializeProjects();
+            }
+            return hRSavedProjects;
+        }
+
+        private DialogResult MsgSavedHttpRequestsFileNoExist(string savedHttpRequestsFilePath)
+        {
+            var msg = MSG_SAVED_HTTP_REQUESTS_FILE_NO_EXIST.Replace("{File}", savedHttpRequestsFilePath);
+            var title = TITLE_SAVED_HTTP_REQUESTS_FILE_NO_EXIST;
+            return MessageBox.Show(msg, title, MessageBoxButtons.OK);
+        }
+
+        private DialogResult MsgOfferingNewHttpRequestsFile(string savedHttpRequestsFilePath)
+        {
+            var msg = MSG_OFFER_NEW_HTTP_REQUESTS_FILE.Replace("{File}", savedHttpRequestsFilePath);
+            var title = TITLE_SAVED_HTTP_REQUESTS_FILE_NO_EXIST;
+            return MessageBox.Show(msg, title, MessageBoxButtons.OK);
+        }
+
+        private string LoadLocationSavedHttpRequestsFileFromConfiguration() 
+        {
+            return Environment.CurrentDirectory + "\\" + ConfigurationManager.AppSettings.Get("SavedProjectsFileName");                        
+        }
+
+        private void OpenSavedHttpRequestsForm(HttpRequestsSavedProjects httpRequestsSavedProjects)
+        {
+            using (var frm = new frmSavedHttpRequests(httpRequestsSavedProjects))
+            {
                 var result = frm.ShowDialog();
                 if (result == DialogResult.OK)
                     txtUrl.Text = frm.HttpRequestSelected;
-            //}
+            }
         }
 
         private async void RequestAPI(Uri url)

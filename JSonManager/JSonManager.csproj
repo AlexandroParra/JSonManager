@@ -77,25 +77,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiConnector.cs" />
+    <Compile Include="HttpRequests\HttpRequestsSavedProjects.cs" />
     <Compile Include="PropertiesFormControls.cs" />
-    <Compile Include="SavedHttpRequests\frmHREntityEdition.cs">
+    <Compile Include="HttpRequests\frmHREntityEdition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SavedHttpRequests\frmHREntityEdition.Designer.cs">
+    <Compile Include="HttpRequests\frmHREntityEdition.Designer.cs">
       <DependentUpon>frmHREntityEdition.cs</DependentUpon>
     </Compile>
-    <Compile Include="SavedHttpRequests\frmSavedHttpRequests.cs">
+    <Compile Include="HttpRequests\frmSavedHttpRequests.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SavedHttpRequests\frmSavedHttpRequests.Designer.cs">
+    <Compile Include="HttpRequests\frmSavedHttpRequests.Designer.cs">
       <DependentUpon>frmSavedHttpRequests.cs</DependentUpon>
     </Compile>
-    <Compile Include="SavedHttpRequests\HRCollection.cs" />
-    <Compile Include="SavedHttpRequests\HRProject.cs" />
-    <Compile Include="SavedHttpRequests\HRRequest.cs" />
-    <Compile Include="SavedHttpRequests\HRVariable.cs" />
-    <Compile Include="SavedHttpRequests\HRVariableValue.cs" />
-    <Compile Include="SavedHttpRequests\IEditableEntity.cs" />
+    <Compile Include="HttpRequests\HRCollection.cs" />
+    <Compile Include="HttpRequests\HRProject.cs" />
+    <Compile Include="HttpRequests\HRRequest.cs" />
+    <Compile Include="HttpRequests\HRVariable.cs" />
+    <Compile Include="HttpRequests\HRVariableValue.cs" />
+    <Compile Include="HttpRequests\IEditableEntity.cs" />
     <Compile Include="Serializers\XmlManager.cs" />
     <Compile Include="SBClassFormControls.cs" />
     <Compile Include="StringBaseClass.cs" />
@@ -125,10 +126,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="SavedHttpRequests\frmHREntityEdition.resx">
+    <EmbeddedResource Include="HttpRequests\frmHREntityEdition.resx">
       <DependentUpon>frmHREntityEdition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SavedHttpRequests\frmSavedHttpRequests.resx">
+    <EmbeddedResource Include="HttpRequests\frmSavedHttpRequests.resx">
       <DependentUpon>frmSavedHttpRequests.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
