@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace JSonManager.SavedHttpRequests
@@ -26,6 +20,8 @@ namespace JSonManager.SavedHttpRequests
 
         private HRRequest _currentRequest;
 
+        private HRVariable _currentVariable;
+
         private XmlManager _xmlManager = new XmlManager();
 
         private string _locationProjectsFile; 
@@ -40,7 +36,7 @@ namespace JSonManager.SavedHttpRequests
 
         private void LoadDataForm()
         {
-            LoadHRProjects();
+            LoadHRProjectsFromFile();
         }
 
         private void txtProjectFinder_TextChanged(object sender, EventArgs e)
@@ -76,12 +72,12 @@ namespace JSonManager.SavedHttpRequests
             lstHRVariables.DisplayMember = "Name";
         }
 
-        private void LoadHRProjects()
+        private void LoadHRProjectsFromFile()
         {
             _projects = _xmlManager.Deserialize<List<HRProject>>(_locationProjectsFile);
             if (_projects != null && _projects.Count > 0)
-            {                
-                lstHRProjects.DataSource = _projects;
+            {
+                LoadHRProjects();
             }
         }
 
@@ -103,24 +99,33 @@ namespace JSonManager.SavedHttpRequests
             }
         }
 
+        private void LoadHRProjects()
+        {
+            lstHRProjects.DataSource = _projects;
+            lstHRProjects.Refresh();
+        }
+
         private void LoadHRCollections()
         {            
             lstHRCollections.DataSource = _currentProject.Collections;
+            lstHRCollections.Refresh();
         }
 
         private void LoadHRRequests()
         {
             lstHRRequests.DataSource = _currentCollection.Requests;
+            lstHRRequests.Refresh();
         }
 
         private void LoadHRVariables()
         {
             lstHRVariables.DataSource = _currentRequest.Variables;
+            lstHRVariables.Refresh();
         }
 
         private void LoadHRVariableValue()
         {
-            dataGridVariables.DataSource = _currentRequest.Variables;
+            dataGridVariables.DataSource = _currentVariable._values;
         }
 
         private void lstHRRequests_SelectedIndexChanged(object sender, EventArgs e)
@@ -143,13 +148,13 @@ namespace JSonManager.SavedHttpRequests
             txtDecodedRequest.Text = decodeReq;
         }
 
+
         private void btnSelect_Click(object sender, EventArgs e)
         {
             HttpRequestSelected = txtDecodedRequest.Text;
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
-
 
 
 
@@ -171,10 +176,17 @@ namespace JSonManager.SavedHttpRequests
                 var newProject = CreateNewProject(name);
 
                 if (newProject != null)
-                    _projects.Add(newProject);
-            }
-                
+                    AddNewProjectToListOfProjects(newProject);
+            }                
         }
+
+        private void AddNewProjectToListOfProjects(HRProject newProject)
+        {
+            _projects.Add(newProject);
+            LoadHRProjects();
+        }
+
+
 
         private void SaveProjects(List<HRProject> projects, string file)
         {
@@ -192,8 +204,16 @@ namespace JSonManager.SavedHttpRequests
                 var newCollection = CreateNewCollection(name);
 
                 if (newCollection != null)
-                    _currentProject.Collections.Add(newCollection);
+                {
+                    AddNewCollectionToCurrentProject(newCollection);
+                }
             }
+        }
+
+        private void AddNewCollectionToCurrentProject(HRCollection newCollection)
+        {
+            _currentProject.Collections.Add(newCollection);
+            LoadHRCollections();
         }
 
 
@@ -208,8 +228,14 @@ namespace JSonManager.SavedHttpRequests
                 var newRequest = CreateNewRequest(name);
 
                 if (newRequest != null)
-                    _currentCollection.Requests.Add(newRequest);
+                    AddNewRequestToCurrentCollection(newRequest);
             }
+        }
+
+        private void AddNewRequestToCurrentCollection(HRRequest newRequest)
+        {
+            _currentCollection.Requests.Add(newRequest);
+            LoadHRRequests();
         }
 
         private HRRequest CreateNewRequest(string name)
@@ -264,6 +290,46 @@ namespace JSonManager.SavedHttpRequests
             {
                 hrCollection.Description = frmHREE.Entity.Description;
                 return hrCollection;
+            }
+
+            return null;
+        }
+
+        private void btnNewVariable_Click(object sender, EventArgs e)
+        {
+            string name = txtVariableFinder.Text;
+
+            var variableNames = _currentRequest.Variables.Select(x => x.Name).ToList();
+
+            if (name != String.Empty && !variableNames.Contains(name))
+            {
+                var newVariable = CreateNewVariable(name);
+
+                if (newVariable != null)
+                    AddNewVariableToCurrentRequest(newVariable);
+            }
+        }
+
+        private void AddNewVariableToCurrentRequest(HRVariable newVariable)
+        {
+            _currentRequest.Variables.Add(newVariable);
+            LoadHRVariables();
+        }
+
+
+        private HRVariable CreateNewVariable(string name)
+        {
+            HRVariable hrVariable = new HRVariable();
+            hrVariable.Name = name;
+
+            frmHREntityEdition frmHREE = new frmHREntityEdition(EntityType.Variable);
+            frmHREE.Text = name;
+
+            var result = frmHREE.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                hrVariable.Description = frmHREE.Entity.Description;
+                return hrVariable;
             }
 
             return null;

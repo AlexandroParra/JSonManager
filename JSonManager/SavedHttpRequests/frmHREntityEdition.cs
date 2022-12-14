@@ -49,6 +49,7 @@ namespace JSonManager.SavedHttpRequests
             {
                 case EntityType.Project:
                 case EntityType.Collection:
+                case EntityType.Variable:
                     ShowNameAndDescriptionControls();
                     break;
                 case EntityType.Request:

@@ -12,7 +12,10 @@ namespace JSonManager.SavedHttpRequests
         public List<HRVariableValue> _values = new List<HRVariableValue>();
 
         public string Name { get; set; }
-        public string Value { get { return _values.Where(x => x.IsCurrent == true).First().Value; } }
+
+        public string Description { get; set; }
+
+        public string Value { get { return _values.Count>0?  _values.Where(x => x.IsCurrent == true).First().Value : string.Empty ; } }
         public List<string> Values { get { return _values.Select(x => x.Value).ToList(); } }
 
         public void AddValue(string value, string description = "", bool isCurrent = true)

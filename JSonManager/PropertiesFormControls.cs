@@ -78,6 +78,7 @@ namespace JSonManager
 
         private void LoadPropertiesList()
         {
+            _listOfProperties.Items.Clear();
             foreach (var item in _BaseClass.GetPropertiesManager().GetPropertyNamesSub())
                 _listOfProperties.Items.Add(item);
         }

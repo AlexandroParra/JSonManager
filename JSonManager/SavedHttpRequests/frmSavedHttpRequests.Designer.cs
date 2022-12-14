@@ -189,6 +189,7 @@
             this.btnNewVariable.TabIndex = 11;
             this.btnNewVariable.Text = "+";
             this.btnNewVariable.UseVisualStyleBackColor = true;
+            this.btnNewVariable.Click += new System.EventHandler(this.btnNewVariable_Click);
             // 
             // txtVariableFinder
             // 
