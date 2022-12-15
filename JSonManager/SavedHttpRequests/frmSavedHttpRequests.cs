@@ -116,7 +116,14 @@ namespace JSonManager.SavedHttpRequests
 
         private void LoadHRVariableValue()
         {
-            dataGridVariables.DataSource = _currentVariable._values;
+            dataGridVariables.DataSource = _currentVariable._values;//_currentRequest.Variables;
+            /*
+            foreach (var item in _currentVariable._values)
+            {
+                dataGridVariables.Rows.Add(item);
+                    //new row { item.Value, item.Description, item.IsCurrent? "Current":""}); 
+            }
+            */
         }
 
         private void lstHRRequests_SelectedIndexChanged(object sender, EventArgs e)
@@ -126,6 +133,15 @@ namespace JSonManager.SavedHttpRequests
                 _currentRequest = lstHRRequests.SelectedItem as HRRequest;
                 LoadHRVariables();
                 DecodeRequest();
+            }
+        }
+
+        private void lstHRVariables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(lstHRVariables.SelectedItems.Count > 0)
+            {
+                _currentVariable = lstHRVariables.SelectedItem as HRVariable;
+                LoadHRVariableValue();
             }
         }
 
@@ -318,6 +334,16 @@ namespace JSonManager.SavedHttpRequests
             }
 
             return null;
+        }
+
+        private void dataGridVariables_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+            DecodeRequest();
+            /*
+            if (e.ColumnIndex == 0)            
+                _currentVariable._values = dataGridVariables.DataSource as List<HRVariableValue>;
+            */
         }
     }
 }

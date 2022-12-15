@@ -8,8 +8,8 @@ namespace JSonManager.SavedHttpRequests
 {
     public class HRVariableValue
     {
-        public string Description { get; set; }
         public string Value { get; set; }
+        public string Description { get; set; }
         public bool IsCurrent { get; set; }
     }
 }

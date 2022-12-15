@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lstHRProjects = new System.Windows.Forms.ListBox();
             this.txtProjectFinder = new System.Windows.Forms.TextBox();
             this.lstHRCollections = new System.Windows.Forms.ListBox();
             this.lstHRRequests = new System.Windows.Forms.ListBox();
             this.dataGridVariables = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lstHRVariables = new System.Windows.Forms.ListBox();
             this.txtDecodedRequest = new System.Windows.Forms.TextBox();
             this.btnSelect = new System.Windows.Forms.Button();
@@ -93,31 +91,15 @@
             // 
             // dataGridVariables
             // 
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridVariables.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridVariables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridVariables.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3});
+            this.dataGridVariables.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridVariables.Location = new System.Drawing.Point(1006, 12);
             this.dataGridVariables.Name = "dataGridVariables";
             this.dataGridVariables.Size = new System.Drawing.Size(349, 321);
             this.dataGridVariables.TabIndex = 4;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Variable";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Valor";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Actual";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
+            this.dataGridVariables.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridVariables_CellValueChanged);
             // 
             // lstHRVariables
             // 
@@ -128,6 +110,7 @@
             this.lstHRVariables.Name = "lstHRVariables";
             this.lstHRVariables.Size = new System.Drawing.Size(313, 292);
             this.lstHRVariables.TabIndex = 5;
+            this.lstHRVariables.SelectedIndexChanged += new System.EventHandler(this.lstHRVariables_SelectedIndexChanged);
             // 
             // txtDecodedRequest
             // 
@@ -254,9 +237,6 @@
         private System.Windows.Forms.ListBox lstHRCollections;
         private System.Windows.Forms.ListBox lstHRRequests;
         private System.Windows.Forms.DataGridView dataGridVariables;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.ListBox lstHRVariables;
         private System.Windows.Forms.TextBox txtDecodedRequest;
         private System.Windows.Forms.Button btnSelect;
