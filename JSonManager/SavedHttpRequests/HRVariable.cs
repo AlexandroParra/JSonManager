@@ -15,7 +15,20 @@ namespace JSonManager.SavedHttpRequests
 
         public string Description { get; set; }
 
-        public string Value { get { return _values.Count>0?  _values.Where(x => x.IsCurrent == true).First().Value : string.Empty ; } }
+        public string Value 
+        { 
+            get 
+            {
+                if (_values.Count > 0)
+                {
+                    var value = _values.Where(x => x.IsCurrent == true).First().Value;
+                    if (value == null)
+                        return _values.First().Value;
+                }
+                return string.Empty; 
+            } 
+        }
+
         public List<string> Values { get { return _values.Select(x => x.Value).ToList(); } }
 
         public void AddValue(string value, string description = "", bool isCurrent = true)

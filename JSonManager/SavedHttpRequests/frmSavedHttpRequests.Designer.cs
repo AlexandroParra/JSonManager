@@ -44,6 +44,8 @@
             this.txtVariableFinder = new System.Windows.Forms.TextBox();
             this.btnNewHRequest = new System.Windows.Forms.Button();
             this.txtRequestFinder = new System.Windows.Forms.TextBox();
+            this.txtValueFinder = new System.Windows.Forms.TextBox();
+            this.btnNewValue = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVariables)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,9 +97,9 @@
             this.dataGridVariables.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridVariables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridVariables.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dataGridVariables.Location = new System.Drawing.Point(1006, 12);
+            this.dataGridVariables.Location = new System.Drawing.Point(1006, 41);
             this.dataGridVariables.Name = "dataGridVariables";
-            this.dataGridVariables.Size = new System.Drawing.Size(349, 321);
+            this.dataGridVariables.Size = new System.Drawing.Size(349, 292);
             this.dataGridVariables.TabIndex = 4;
             this.dataGridVariables.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridVariables_CellValueChanged);
             // 
@@ -201,11 +203,32 @@
             this.txtRequestFinder.Size = new System.Drawing.Size(1253, 25);
             this.txtRequestFinder.TabIndex = 14;
             // 
+            // txtValueFinder
+            // 
+            this.txtValueFinder.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValueFinder.Location = new System.Drawing.Point(1006, 10);
+            this.txtValueFinder.Name = "txtValueFinder";
+            this.txtValueFinder.Size = new System.Drawing.Size(306, 25);
+            this.txtValueFinder.TabIndex = 15;
+            // 
+            // btnNewValue
+            // 
+            this.btnNewValue.Font = new System.Drawing.Font("Cooper Black", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewValue.Location = new System.Drawing.Point(1318, 10);
+            this.btnNewValue.Name = "btnNewValue";
+            this.btnNewValue.Size = new System.Drawing.Size(37, 26);
+            this.btnNewValue.TabIndex = 16;
+            this.btnNewValue.Text = "+";
+            this.btnNewValue.UseVisualStyleBackColor = true;
+            this.btnNewValue.Click += new System.EventHandler(this.btnNewValue_Click);
+            // 
             // frmSavedHttpRequests
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1372, 692);
+            this.Controls.Add(this.btnNewValue);
+            this.Controls.Add(this.txtValueFinder);
             this.Controls.Add(this.txtRequestFinder);
             this.Controls.Add(this.btnNewHRequest);
             this.Controls.Add(this.txtVariableFinder);
@@ -247,5 +270,7 @@
         private System.Windows.Forms.TextBox txtVariableFinder;
         private System.Windows.Forms.Button btnNewHRequest;
         private System.Windows.Forms.TextBox txtRequestFinder;
+        private System.Windows.Forms.TextBox txtValueFinder;
+        private System.Windows.Forms.Button btnNewValue;
     }
 }

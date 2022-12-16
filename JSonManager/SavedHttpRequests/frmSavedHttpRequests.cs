@@ -211,11 +211,6 @@ namespace JSonManager.SavedHttpRequests
             }
         }
 
-        private void AddNewCollectionToCurrentProject(HRCollection newCollection)
-        {
-            _currentProject.Collections.Add(newCollection);
-            LoadHRCollections();
-        }
 
 
         private void btnNewHRequest_Click(object sender, EventArgs e)
@@ -232,6 +227,36 @@ namespace JSonManager.SavedHttpRequests
                     AddNewRequestToCurrentCollection(newRequest);
             }
         }
+
+
+        private void btnNewValue_Click(object sender, EventArgs e)
+        {
+            string value = txtValueFinder.Text;
+
+            var values = _currentVariable.Values;
+
+            if(value != string.Empty && !values.Contains(value))
+            {
+                var newValue = CreateNewValue(value);
+
+                if (newValue != null)
+                    AddNewValueToCurrentVariable(newValue);
+            }
+        }
+
+        private void AddNewValueToCurrentVariable(HRVariableValue newValue)
+        {
+            _currentVariable._values.Add(newValue);
+            LoadHRVariableValue();
+        }
+
+
+        private void AddNewCollectionToCurrentProject(HRCollection newCollection)
+        {
+            _currentProject.Collections.Add(newCollection);
+            LoadHRCollections();
+        }
+
 
         private void AddNewRequestToCurrentCollection(HRRequest newRequest)
         {
@@ -296,6 +321,25 @@ namespace JSonManager.SavedHttpRequests
             return null;
         }
 
+
+        private HRVariableValue CreateNewValue(string value)
+        {
+            HRVariableValue hrVariableValue = new HRVariableValue();
+            hrVariableValue.Value = value;
+
+            frmHREntityEdition frmHREE = new frmHREntityEdition(EntityType.Value);
+            frmHREE.Name = value;
+
+            var result = frmHREE.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                hrVariableValue.Description = frmHREE.Entity.Description;
+                return hrVariableValue;
+            }
+
+            return null;
+        }
+
         private void btnNewVariable_Click(object sender, EventArgs e)
         {
             string name = txtVariableFinder.Text;
@@ -345,5 +389,6 @@ namespace JSonManager.SavedHttpRequests
                 _currentVariable._values = dataGridVariables.DataSource as List<HRVariableValue>;
             */
         }
+
     }
 }

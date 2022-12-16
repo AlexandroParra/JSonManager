@@ -17,7 +17,8 @@ namespace JSonManager.SavedHttpRequests
         Project,
         Collection,
         Request,
-        Variable
+        Variable,
+        Value
     }
 
     public partial class frmHREntityEdition : Form
@@ -50,6 +51,7 @@ namespace JSonManager.SavedHttpRequests
                 case EntityType.Project:
                 case EntityType.Collection:
                 case EntityType.Variable:
+                case EntityType.Value:
                     ShowNameAndDescriptionControls();
                     break;
                 case EntityType.Request:
