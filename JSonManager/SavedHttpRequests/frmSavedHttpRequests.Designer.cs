@@ -34,6 +34,9 @@
             this.lstHRCollections = new System.Windows.Forms.ListBox();
             this.lstHRRequests = new System.Windows.Forms.ListBox();
             this.dataGridVariables = new System.Windows.Forms.DataGridView();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsCurrent = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.lstHRVariables = new System.Windows.Forms.ListBox();
             this.txtDecodedRequest = new System.Windows.Forms.TextBox();
             this.btnSelect = new System.Windows.Forms.Button();
@@ -46,9 +49,6 @@
             this.txtRequestFinder = new System.Windows.Forms.TextBox();
             this.txtValueFinder = new System.Windows.Forms.TextBox();
             this.btnNewValue = new System.Windows.Forms.Button();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsCurrent = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVariables)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,6 +110,22 @@
             this.dataGridVariables.Size = new System.Drawing.Size(349, 292);
             this.dataGridVariables.TabIndex = 4;
             this.dataGridVariables.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridVariables_CellValueChanged);
+            this.dataGridVariables.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridVariables_RowsRemoved);
+            // 
+            // Value
+            // 
+            this.Value.HeaderText = "Value";
+            this.Value.Name = "Value";
+            // 
+            // Description
+            // 
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            // 
+            // IsCurrent
+            // 
+            this.IsCurrent.HeaderText = "IsCurrent";
+            this.IsCurrent.Name = "IsCurrent";
             // 
             // lstHRVariables
             // 
@@ -229,21 +245,6 @@
             this.btnNewValue.Text = "+";
             this.btnNewValue.UseVisualStyleBackColor = true;
             this.btnNewValue.Click += new System.EventHandler(this.btnNewValue_Click);
-            // 
-            // Value
-            // 
-            this.Value.HeaderText = "Value";
-            this.Value.Name = "Value";
-            // 
-            // Description
-            // 
-            this.Description.HeaderText = "Description";
-            this.Description.Name = "Description";
-            // 
-            // IsCurrent
-            // 
-            this.IsCurrent.HeaderText = "IsCurrent";
-            this.IsCurrent.Name = "IsCurrent";
             // 
             // frmSavedHttpRequests
             // 

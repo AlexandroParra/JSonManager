@@ -72,7 +72,6 @@ namespace JSonManager.SavedHttpRequests
         }
 
 
-
         private void lstHRProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lstHRProjects.SelectedItems.Count > 0)
@@ -114,11 +113,8 @@ namespace JSonManager.SavedHttpRequests
         private void LoadHRVariableValue()
         {
             dataGridVariables.Rows.Clear();
-            foreach (var value in _currentVariable._values)
-            {
-                dataGridVariables.Rows.Add(value.Value, value.Description, value.IsCurrent );
-                //new Row (item.Value, item.Description, item.IsCurrent? "Current":""}); 
-            }
+            foreach (var value in _currentVariable._values)            
+                dataGridVariables.Rows.Add(value.Value, value.Description, value.IsCurrent );            
         }
 
         private void lstHRRequests_SelectedIndexChanged(object sender, EventArgs e)
@@ -397,15 +393,34 @@ namespace JSonManager.SavedHttpRequests
         {
             if (_currentRequest != null)
             {
+                _currentVariable._values = GetValuesFromDataGridView(dataGridVariables);
+                DecodeRequest();
+            }            
+        }
 
-                //TODO: Cargar los dados del DataGridView en el _currentVariableValues
-                var valor = new HRVariableValue();
-
-                valor.Value = dataGridVariables.Rows[e.RowIndex].Cells[0].ToString();
-                valor.Description = dataGridVariables.Rows[e.RowIndex].Cells[1].ToString();
-                AddNewValueToCurrentVariable(valor);
+        private void dataGridVariables_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            if (_currentRequest != null)
+            {
+                _currentVariable._values = GetValuesFromDataGridView(dataGridVariables);
+                DecodeRequest();
             }
         }
+
+        private List<HRVariableValue> GetValuesFromDataGridView( DataGridView dgv)
+        {
+            var listOfValues = new List<HRVariableValue>();
+            foreach (DataGridViewRow dgvRow in dgv.Rows)
+            {
+                var valor = new HRVariableValue();
+                valor.Value = dgvRow.Cells[0].Value.ToString();
+                valor.Description = dgvRow.Cells[1].Value.ToString();
+                valor.IsCurrent = (bool)dgvRow.Cells[2].Value;
+                listOfValues.Add(valor);
+            }
+            return listOfValues;
+        }
+
 
     }
 }
