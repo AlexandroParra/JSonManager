@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiConnector.cs" />
+    <Compile Include="ControlsLibrary.cs" />
     <Compile Include="SavedHttpRequests\HttpRequestsSavedProjects.cs" />
     <Compile Include="PropertiesFormControls.cs" />
     <Compile Include="SavedHttpRequests\frmHREntityEdition.cs">

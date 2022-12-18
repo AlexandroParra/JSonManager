@@ -46,6 +46,9 @@
             this.txtRequestFinder = new System.Windows.Forms.TextBox();
             this.txtValueFinder = new System.Windows.Forms.TextBox();
             this.btnNewValue = new System.Windows.Forms.Button();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsCurrent = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVariables)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,9 +96,14 @@
             // 
             // dataGridVariables
             // 
+            this.dataGridVariables.AllowUserToAddRows = false;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridVariables.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridVariables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridVariables.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Value,
+            this.Description,
+            this.IsCurrent});
             this.dataGridVariables.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridVariables.Location = new System.Drawing.Point(1006, 41);
             this.dataGridVariables.Name = "dataGridVariables";
@@ -222,6 +230,21 @@
             this.btnNewValue.UseVisualStyleBackColor = true;
             this.btnNewValue.Click += new System.EventHandler(this.btnNewValue_Click);
             // 
+            // Value
+            // 
+            this.Value.HeaderText = "Value";
+            this.Value.Name = "Value";
+            // 
+            // Description
+            // 
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            // 
+            // IsCurrent
+            // 
+            this.IsCurrent.HeaderText = "IsCurrent";
+            this.IsCurrent.Name = "IsCurrent";
+            // 
             // frmSavedHttpRequests
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,5 +295,8 @@
         private System.Windows.Forms.TextBox txtRequestFinder;
         private System.Windows.Forms.TextBox txtValueFinder;
         private System.Windows.Forms.Button btnNewValue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsCurrent;
     }
 }

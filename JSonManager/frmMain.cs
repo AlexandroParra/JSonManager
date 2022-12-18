@@ -25,8 +25,8 @@ namespace JSonManager
     {
 
 
-        private const string MSG_SAVED_HTTP_REQUESTS_FILE_NO_EXIST = "The configuration file {File} has not been founded.";
-        private const string MSG_OFFER_NEW_HTTP_REQUESTS_FILE = "Do you want continue creating a new file of Http Requests? (file {File} will be created)";
+        private const string MSG_SAVED_HTTP_REQUESTS_FILE_NO_EXIST = "Configuration file {File} not found.";
+        private const string MSG_OFFER_NEW_HTTP_REQUESTS_FILE = "Do you want continue creating a new one? (file {File} will be created)";
         private const string TITLE_SAVED_HTTP_REQUESTS_FILE_NO_EXIST = "Error Accessing Configuration File";
 
         private OpenFileDialog openFileDialog1;
@@ -170,7 +170,7 @@ namespace JSonManager
         {
             var msg = MSG_OFFER_NEW_HTTP_REQUESTS_FILE.Replace("{File}", savedHttpRequestsFilePath);
             var title = TITLE_SAVED_HTTP_REQUESTS_FILE_NO_EXIST;
-            return MessageBox.Show(msg, title, MessageBoxButtons.OK);
+            return MessageBox.Show(msg, title, MessageBoxButtons.YesNo);
         }
 
         private string LoadLocationSavedHttpRequestsFileFromConfiguration() 

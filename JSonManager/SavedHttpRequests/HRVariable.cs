@@ -21,9 +21,9 @@ namespace JSonManager.SavedHttpRequests
             {
                 if (_values.Count > 0)
                 {
-                    var value = _values.Where(x => x.IsCurrent == true).First().Value;
-                    if (value == null)
-                        return _values.First().Value;
+                    var value = _values.Where(x => x.IsCurrent == true);
+                    if (value.Any())
+                        return value.First().Value;
                 }
                 return string.Empty; 
             } 
@@ -41,6 +41,13 @@ namespace JSonManager.SavedHttpRequests
 
             _values.Add(new HRVariableValue { Value = value, Description = description, IsCurrent = isCurrent });
         }
+
+
+        public void AddValue(HRVariableValue newValue)
+        {
+            AddValue(newValue.Value, newValue.Description);
+        }
+
 
         public void SetCurrentValue(string value)
         {

@@ -68,6 +68,7 @@ namespace JSonManager.SavedHttpRequests
 
             lstHRVariables.ValueMember = "Name";
             lstHRVariables.DisplayMember = "Name";
+
         }
 
 
@@ -92,38 +93,32 @@ namespace JSonManager.SavedHttpRequests
 
         private void LoadHRProjects()
         {
-            lstHRProjects.DataSource = _projects;
-            lstHRProjects.Refresh();
+            ControlsLibrary.ListBoxLoad(lstHRProjects, _projects);
         }
 
         private void LoadHRCollections()
-        {            
-            lstHRCollections.DataSource = _currentProject.Collections;
-            lstHRCollections.Refresh();
+        {
+            ControlsLibrary.ListBoxLoad(lstHRCollections, _currentProject.Collections);
         }
 
         private void LoadHRRequests()
         {
-            lstHRRequests.DataSource = _currentCollection.Requests;
-            lstHRRequests.Refresh();
+            ControlsLibrary.ListBoxLoad(lstHRRequests, _currentCollection.Requests);
         }
 
         private void LoadHRVariables()
         {
-            lstHRVariables.DataSource = _currentRequest.Variables;
-            lstHRVariables.Refresh();
+            ControlsLibrary.ListBoxLoad(lstHRVariables, _currentRequest.Variables);
         }
 
         private void LoadHRVariableValue()
         {
-            dataGridVariables.DataSource = _currentVariable._values;//_currentRequest.Variables;
-            /*
-            foreach (var item in _currentVariable._values)
+            dataGridVariables.Rows.Clear();
+            foreach (var value in _currentVariable._values)
             {
-                dataGridVariables.Rows.Add(item);
-                    //new row { item.Value, item.Description, item.IsCurrent? "Current":""}); 
+                dataGridVariables.Rows.Add(value.Value, value.Description, value.IsCurrent );
+                //new Row (item.Value, item.Description, item.IsCurrent? "Current":""}); 
             }
-            */
         }
 
         private void lstHRRequests_SelectedIndexChanged(object sender, EventArgs e)
@@ -145,6 +140,7 @@ namespace JSonManager.SavedHttpRequests
             }
         }
 
+
         private void DecodeRequest()
         {
             string decodeReq = _currentRequest.Url;
@@ -164,12 +160,10 @@ namespace JSonManager.SavedHttpRequests
         }
 
 
-
         private void frmSavedHttpRequests_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (_projects.Count > 0) _savedProjects.SaveProjects();
         }
-
 
 
         private void btnNewProject_Click(object sender, EventArgs e)
@@ -183,14 +177,10 @@ namespace JSonManager.SavedHttpRequests
                 var newProject = CreateNewProject(name);
 
                 if (newProject != null)
+                {
                     AddNewProjectToListOfProjects(newProject);
+                }
             }                
-        }
-
-        private void AddNewProjectToListOfProjects(HRProject newProject)
-        {
-            _projects.Add(newProject);
-            LoadHRProjects();
         }
 
 
@@ -212,7 +202,6 @@ namespace JSonManager.SavedHttpRequests
         }
 
 
-
         private void btnNewHRequest_Click(object sender, EventArgs e)
         {
             string name = txtRequestFinder.Text;
@@ -224,7 +213,9 @@ namespace JSonManager.SavedHttpRequests
                 var newRequest = CreateNewRequest(name);
 
                 if (newRequest != null)
+                {
                     AddNewRequestToCurrentCollection(newRequest);
+                }
             }
         }
 
@@ -240,14 +231,45 @@ namespace JSonManager.SavedHttpRequests
                 var newValue = CreateNewValue(value);
 
                 if (newValue != null)
+                {
                     AddNewValueToCurrentVariable(newValue);
+                }
             }
         }
 
+
+        private void btnNewVariable_Click(object sender, EventArgs e)
+        {
+            string name = txtVariableFinder.Text;
+
+            var variableNames = _currentRequest.Variables.Select(x => x.Name).ToList();
+
+            if (name != String.Empty && !variableNames.Contains(name))
+            {
+                var newVariable = CreateNewVariable(name);
+
+                if (newVariable != null)
+                {
+                    AddNewVariableToCurrentRequest(newVariable);
+                }
+            }
+        }
+
+
+        private void AddNewProjectToListOfProjects(HRProject newProject)
+        {
+            _projects.Add(newProject);
+            LoadHRProjects();            
+            ControlsLibrary.TextBoxClean(txtProjectFinder);
+        }
+
+
         private void AddNewValueToCurrentVariable(HRVariableValue newValue)
         {
-            _currentVariable._values.Add(newValue);
-            LoadHRVariableValue();
+            _currentVariable.AddValue(newValue);
+            LoadHRVariableValue();            
+            ControlsLibrary.TextBoxClean(txtValueFinder);
+            DecodeRequest();
         }
 
 
@@ -255,6 +277,7 @@ namespace JSonManager.SavedHttpRequests
         {
             _currentProject.Collections.Add(newCollection);
             LoadHRCollections();
+            ControlsLibrary.TextBoxClean(txtCollectionFinder);
         }
 
 
@@ -262,7 +285,17 @@ namespace JSonManager.SavedHttpRequests
         {
             _currentCollection.Requests.Add(newRequest);
             LoadHRRequests();
+            ControlsLibrary.TextBoxClean(txtRequestFinder);
         }
+
+
+        private void AddNewVariableToCurrentRequest(HRVariable newVariable)
+        {
+            _currentRequest.Variables.Add(newVariable);
+            LoadHRVariables();
+            ControlsLibrary.TextBoxClean(txtVariableFinder);
+        }
+
 
         private HRRequest CreateNewRequest(string name)
         {
@@ -340,26 +373,6 @@ namespace JSonManager.SavedHttpRequests
             return null;
         }
 
-        private void btnNewVariable_Click(object sender, EventArgs e)
-        {
-            string name = txtVariableFinder.Text;
-
-            var variableNames = _currentRequest.Variables.Select(x => x.Name).ToList();
-
-            if (name != String.Empty && !variableNames.Contains(name))
-            {
-                var newVariable = CreateNewVariable(name);
-
-                if (newVariable != null)
-                    AddNewVariableToCurrentRequest(newVariable);
-            }
-        }
-
-        private void AddNewVariableToCurrentRequest(HRVariable newVariable)
-        {
-            _currentRequest.Variables.Add(newVariable);
-            LoadHRVariables();
-        }
 
 
         private HRVariable CreateNewVariable(string name)
@@ -382,12 +395,16 @@ namespace JSonManager.SavedHttpRequests
 
         private void dataGridVariables_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            if (_currentRequest != null)
+            {
 
-            DecodeRequest();
-            /*
-            if (e.ColumnIndex == 0)            
-                _currentVariable._values = dataGridVariables.DataSource as List<HRVariableValue>;
-            */
+                //TODO: Cargar los dados del DataGridView en el _currentVariableValues
+                var valor = new HRVariableValue();
+
+                valor.Value = dataGridVariables.Rows[e.RowIndex].Cells[0].ToString();
+                valor.Description = dataGridVariables.Rows[e.RowIndex].Cells[1].ToString();
+                AddNewValueToCurrentVariable(valor);
+            }
         }
 
     }
