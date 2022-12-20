@@ -23,7 +23,7 @@ namespace JSonManager
 {
     public partial class frmMain : Form
     {
-
+        private enum APIResponseType { JSON, XML }
 
         private const string MSG_SAVED_HTTP_REQUESTS_FILE_NO_EXIST = "Configuration file {File} not found.";
         private const string MSG_OFFER_NEW_HTTP_REQUESTS_FILE = "Do you want continue creating a new one? (file {File} will be created)";
@@ -191,10 +191,42 @@ namespace JSonManager
         private async void RequestAPI(Uri url)
         {
             string dato = await ApiConnector.Connect(url);
-            jSonReader = new JSonReader(dato);
+            ShowFormattedContent(dato);
+        }
+
+
+        private void ShowFormattedContent(string content)
+        {
+            APIResponseType responseType = GetAPIResponseType(content);
+            switch(responseType)
+            {
+                case APIResponseType.JSON:
+                    ShowJSONResponse(content);
+                    break;
+                case APIResponseType.XML:
+                    ShowXMLResponse(content);
+                    break;
+            }
+        }
+
+        private void ShowJSONResponse(string response)
+        {
+            jSonReader = new JSonReader(response);
             LoadTreeViewFromJSonData(jSonReader);
         }
 
+        private void ShowXMLResponse(string response)
+        {
+            // TODO: Gestionar la respuesta XML
+            jSonReader = new JSonReader(response);
+            LoadTreeViewFromJSonData(jSonReader);
+        }
+
+        private APIResponseType GetAPIResponseType(string content)
+        {
+            // TODO: Hacer la comprobación del tipo de la respuesta.
+            return APIResponseType.XML;
+        }
 
         private void ReadFile(string filePath)
         {
