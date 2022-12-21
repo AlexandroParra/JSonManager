@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabTreeView = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -54,6 +55,7 @@
             this.lstProperties = new System.Windows.Forms.ListBox();
             this.txtProperties = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cmbMethods = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabTreeView.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -92,6 +94,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cmbMethods);
             this.panel1.Controls.Add(this.txtUrl);
             this.panel1.Controls.Add(this.txtFile);
             this.panel1.Controls.Add(this.btnRequest);
@@ -105,9 +108,9 @@
             // txtUrl
             // 
             this.txtUrl.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUrl.Location = new System.Drawing.Point(7, 54);
+            this.txtUrl.Location = new System.Drawing.Point(89, 54);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(947, 26);
+            this.txtUrl.Size = new System.Drawing.Size(865, 26);
             this.txtUrl.TabIndex = 15;
             // 
             // txtFile
@@ -190,6 +193,7 @@
             this.txtRequestBody.Name = "txtRequestBody";
             this.txtRequestBody.Size = new System.Drawing.Size(1057, 746);
             this.txtRequestBody.TabIndex = 0;
+            this.txtRequestBody.Text = resources.GetString("txtRequestBody.Text");
             // 
             // tabPage2
             // 
@@ -337,6 +341,19 @@
             this.tabPage4.Text = "Structure";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // cmbMethods
+            // 
+            this.cmbMethods.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbMethods.FormattingEnabled = true;
+            this.cmbMethods.Items.AddRange(new object[] {
+            "GET",
+            "POST",
+            "PUT"});
+            this.cmbMethods.Location = new System.Drawing.Point(7, 54);
+            this.cmbMethods.Name = "cmbMethods";
+            this.cmbMethods.Size = new System.Drawing.Size(83, 26);
+            this.cmbMethods.TabIndex = 16;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -390,6 +407,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblSeparator;
         private System.Windows.Forms.TextBox txtSeparator;
+        private System.Windows.Forms.ComboBox cmbMethods;
     }
 }
 

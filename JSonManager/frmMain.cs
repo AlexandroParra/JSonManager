@@ -8,10 +8,12 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static JSonManager.Definitions;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.AxHost;
@@ -23,8 +25,6 @@ namespace JSonManager
 {
     public partial class frmMain : Form
     {
-        private enum APIResponseType { JSON, XML }
-
         private const string MSG_SAVED_HTTP_REQUESTS_FILE_NO_EXIST = "Configuration file {File} not found.";
         private const string MSG_OFFER_NEW_HTTP_REQUESTS_FILE = "Do you want continue creating a new one? (file {File} will be created)";
         private const string TITLE_SAVED_HTTP_REQUESTS_FILE_NO_EXIST = "Error Accessing Configuration File";
@@ -57,7 +57,6 @@ namespace JSonManager
             _ = new PropertiesFormControls(treeView1, lstProperties, txtEnclosuredProperties, txtPrefix, txtSufix, txtSeparator);
 
             #endregion
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -70,7 +69,6 @@ namespace JSonManager
             String line;
             try
             {
-
                 //Pass the file path and file name to the StreamReader constructor
                 StreamReader sr = new StreamReader(nombreFichero);
                 //Read the first line of text
@@ -135,6 +133,7 @@ namespace JSonManager
                 ManagesHttpRequests();
         }
 
+
         private void ManagesSavedHttpRequests()
         {
             var hRSavedProjects = CreateHttpRequestsSavedProjects();
@@ -142,6 +141,7 @@ namespace JSonManager
             if (hRSavedProjects.IsEnabled)
                 OpenSavedHttpRequestsForm(hRSavedProjects);
         }
+
 
         private HttpRequestsSavedProjects CreateHttpRequestsSavedProjects()
         {
@@ -188,22 +188,31 @@ namespace JSonManager
             }
         }
 
-        private async void RequestAPI(Uri url)
+        private async void RequestAPI(Request request)
         {
-            string dato = await ApiConnector.Connect(url);
+            string dato = string.Empty;
+
+            if (request.Method.Equals(HttpMethods.GET.ToString()))
+                dato = await ApiConnector.Connect(request.Url);
+            else
+            {
+                HttpResponseMessage response = await ApiConnector.PostAsync(request.Url, request.Body);
+                response.EnsureSuccessStatusCode();
+                dato = await response.Content.ReadAsStringAsync();
+            }
             ShowFormattedContent(dato);
         }
 
 
         private void ShowFormattedContent(string content)
         {
-            APIResponseType responseType = GetAPIResponseType(content);
+            APIDataFormat responseType = GetAPIResponseType(content);
             switch(responseType)
             {
-                case APIResponseType.JSON:
+                case APIDataFormat.json:
                     ShowJSONResponse(content);
                     break;
-                case APIResponseType.XML:
+                case APIDataFormat.xml:
                     ShowXMLResponse(content);
                     break;
             }
@@ -222,10 +231,12 @@ namespace JSonManager
             LoadTreeViewFromJSonData(jSonReader);
         }
 
-        private APIResponseType GetAPIResponseType(string content)
+        private APIDataFormat GetAPIResponseType(string content)
         {
-            // TODO: Hacer la comprobación del tipo de la respuesta.
-            return APIResponseType.XML;
+            if(content.StartsWith("<?xml"))
+                return APIDataFormat.xml;
+            else
+                return APIDataFormat.json;
         }
 
         private void ReadFile(string filePath)
@@ -250,9 +261,19 @@ namespace JSonManager
                 && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
 
             if (result)
-                RequestAPI(uriResult);
+                RequestAPI(GetRequestFromForm(uriResult));
             else
                 MessageBox.Show("No se pudo validar la Url como una petición HTTP.");
+        }
+
+        private Request GetRequestFromForm(Uri uri)
+        {
+            return new Request()
+            {
+                Body = this.txtRequestBody.Text,
+                Method = this.cmbMethods.Text,
+                Url = uri
+            };
         }
     }
 }
