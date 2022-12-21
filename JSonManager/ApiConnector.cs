@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -26,6 +27,13 @@ namespace JSonManager
                 return await response.Content.ReadAsStringAsync();
             else
                 return null;
+        }
+
+        public static async Task<HttpResponseMessage> PostAsync<T>(string url, HttpClient client, T requestObject)
+        {
+            // Realizamos la llamada a la API.
+            return await client.PostAsJsonAsync(url, requestObject);
+            //return await client.PostAsync(url, requestObject);
         }
 
         /// <summary>
